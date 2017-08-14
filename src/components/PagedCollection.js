@@ -5,10 +5,10 @@ import ItemList from './ItemList'
 import translate from './translate'
 
 const PagedCollection = ({ translate, member, emitter }) => (
-  <div>
+  <section className="PagedCollection">
     <h1>{translate('PagedCollection.totalItems', { smart_count: member.length })}</h1>
     <ItemList listItems={member} emitter={emitter} />
-  </div>
+  </section>
 )
 
 PagedCollection.propTypes = {
