@@ -12,7 +12,7 @@ const WebPage = ({
   author,
   dateCreated
 }) => (
-  <div>
+  <article>
     <h1>{translate(about.name)}</h1>
     <p>
       {translate('WebPage.lastEdited', {
@@ -26,8 +26,32 @@ const WebPage = ({
         dateCreated: moment(dateCreated).calendar()
       })}
     </p>
-    <pre>{JSON.stringify(about, null, 2)}</pre>
-  </div>
+    {about.location && about.location.address &&
+      <table>
+        <tbody>
+          <tr>
+            <td>Street address</td>
+            <td>{about.location.address.streetAddress}</td>
+          </tr>
+          <tr>
+            <td>City</td>
+            <td>{about.location.address.addressLocality}</td>
+          </tr>
+          <tr>
+            <td>Region</td>
+            <td>{about.location.address.addressRegion}</td>
+          </tr>
+          <tr>
+            <td>Country</td>
+            <td>{about.location.address.addressCountry}</td>
+          </tr>
+        </tbody>
+      </table>
+    }
+    {about.location && about.location.geo &&
+      <img src={`http://staticmap.openstreetmap.de/staticmap.php?center=${about.location.geo.lat},${about.location.geo.lon}&zoom=14&maptype=mapnik&markers=${about.location.geo.lat},${about.location.geo.lon},lightblue1`} />
+    }
+  </article>
 )
 
 WebPage.propTypes = {

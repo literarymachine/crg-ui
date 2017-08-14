@@ -5,25 +5,32 @@ import PagedCollection from './PagedCollection'
 import WebPage from './WebPage'
 import Header from './Header'
 import Filters from './Filters'
+import _ from 'lodash'
 
 const App = ({ data, emitter }) => (
-  <main className="main">
+  <div id="wrapper">
+    <main className="main">
 
-    <Header />
+        <Header />
+        <Filters filters={data["filters"] || {"about.@type": [data.about["@type"]]}} />
+        {data['@type'] === 'PagedCollection' &&
+          <div>
+            <PagedCollection emitter={emitter} {...data} />
+            {!_.isEmpty(data["filters"]) &&
+              <section className="actions-container">
+                <a href={"#add-" + data["filters"]["about.@type"][0]} className="add-button">
+                  <i className="fa fa-plus" aria-hidden="true" />
+                </a>
+              </section>
+            }
+          </div>
+        }
+        {data['@type'] === 'WebPage' &&
+          <WebPage emitter={emitter} {...data} />
+        }
 
-    <div className="content">
-
-      <Filters />
-      {data['@type'] === 'PagedCollection' &&
-        <PagedCollection emitter={emitter} {...data} />
-      }
-      {data['@type'] === 'WebPage' &&
-        <WebPage emitter={emitter} {...data} />
-      }
-
-    </div>
-
-  </main>
+    </main>
+  </div>
 )
 
 App.propTypes = {

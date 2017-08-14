@@ -3,18 +3,14 @@ import PropTypes from 'prop-types'
 import 'font-awesome/css/font-awesome.css'
 
 const icons = {
-  Service: 'desktop',
-  Person: 'user',
+  ContactPoint: 'address-card',
   Organization: 'users',
-  Article: 'comment',
-  Action: 'gears',
-  Concept: 'tag',
-  ConceptScheme: 'sitemap',
-  Event: 'calendar'
+  Product: 'barcode',
+  CustomerRelation: 'suitcase'
 }
 
 const Icon = ({ type }) => (
-  <i className={`fa fa-fw fa-${icons[type] || 'question' }`} />
+  <i className={`fa fa-fw fa-${icons[type] || 'question' }`} aria-hidden="true" />
 )
 
 Icon.propTypes = {

@@ -1,1 +1,30 @@
 @import './Colors.pcss';
+
+.Filters {
+
+  & input[type=radio] {
+    display: none;
+  }
+
+  & input[type=radio] + label {
+    color: var(--white);
+    background-color: var(--blue);
+  }
+
+  & input[type=radio]:checked + label {
+    color: var(--orange);
+  }
+
+  & label {
+    display: inline-block;
+    width: 25%;
+    text-align: center;
+    font-size: 3rem;
+  }
+
+  & .search-bar > div {
+    display: inline-block;
+    width: 50%;
+  }
+
+}
