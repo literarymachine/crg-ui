@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import '../styles/Filters.pcss'
 
@@ -79,5 +80,9 @@ const Filters = ({filters}) => (
 
   </nav>
 )
+
+Filters.propTypes = {
+  filters: PropTypes.objectOf(PropTypes.any).isRequired
+}
 
 export default Filters
