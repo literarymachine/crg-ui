@@ -1,7 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Composer } from 'json-pointer-form'
 
 import translate from './translate'
+
+import schema from '../json/schema.json'
+
+import '../styles/form.pcss'
 
 const WebPage = ({
   translate,
@@ -52,6 +57,8 @@ const WebPage = ({
     {about.location && about.location.geo &&
       <img alt="Location" src={`http://staticmap.openstreetmap.de/staticmap.php?center=${about.location.geo.lat},${about.location.geo.lon}&zoom=14&maptype=mapnik&markers=${about.location.geo.lat},${about.location.geo.lon},lightblue1`} />
     }
+    <Composer value={about} schema={schema} />
+    <pre>{JSON.stringify(about, null, 2)}</pre>
   </article>
 )
 

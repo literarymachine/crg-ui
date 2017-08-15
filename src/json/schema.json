@@ -1,5 +1,5 @@
 {
-  "id": "#",
+  "@id": "#",
   "$schema": "http://json-schema.org/draft-04/schema#",
   "oneOf": [
     {
@@ -26,17 +26,18 @@
       "$schema": "http://json-schema.org/draft-04/schema#",
       "title": "A link to another entity",
       "type": "object",
+      "remote": true,
       "properties": {
-        "id": {
+        "@id": {
           "description": "The referenced entities unique identifier",
           "type": "string",
           "format": "uri"
         },
-        "type": {
+        "@type": {
           "type": "string"
         }
       },
-      "required": ["id", "type"]
+      "required": ["@id", "@type"]
     },
     "ConceptScheme": {
       "$schema": "http://json-schema.org/draft-04/schema#",
@@ -48,12 +49,12 @@
           "type": "string",
           "format": "uri"
         },
-        "id": {
+        "@id": {
           "description": "The concept schemes's unique identifier",
           "type": "string",
           "format": "uri"
         },
-        "type": {
+        "@type": {
           "type": "string",
           "enum": [
             "ConceptScheme"
@@ -64,7 +65,7 @@
           "items": {
             "allOf": [
               { "$ref": "#/definitions/Link" },
-              { "properties": { "type": { "enum": [ "Concept" ] } } }
+              { "properties": { "@type": { "enum": [ "Concept" ] } } }
             ]
           }
         }
@@ -81,12 +82,12 @@
           "type": "string",
           "format": "uri"
         },
-        "id": {
+        "@id": {
           "description": "The concepts's unique identifier",
           "type": "string",
           "format": "uri"
         },
-        "type": {
+        "@type": {
           "type": "string",
           "enum": [
             "Concept"
@@ -112,14 +113,14 @@
           "items": {
             "allOf": [
               { "$ref": "#/definitions/Link" },
-              { "properties": { "type": { "enum": [ "Concept" ] } } }
+              { "properties": { "@type": { "enum": [ "Concept" ] } } }
             ]
           }
         },
         "broader": {
           "allOf": [
             { "$ref": "#/definitions/Link" },
-            { "properties": { "type": { "enum": [ "Concept" ] } } }
+            { "properties": { "@type": { "enum": [ "Concept" ] } } }
           ]
         },
         "notation": {
@@ -145,12 +146,12 @@
           "type": "string",
           "format": "uri"
         },
-        "id": {
+        "@id": {
           "description": "The product's unique identifier",
           "type": "string",
           "format": "uri"
         },
-        "type": {
+        "@type": {
           "type": "string",
           "enum": [
             "Product"
@@ -180,12 +181,12 @@
           "type": "string",
           "format": "uri"
         },
-        "id": {
+        "@id": {
           "description": "The contact point's unique identifier",
           "type": "string",
           "format": "uri"
         },
-        "type": {
+        "@type": {
           "type": "string",
           "enum": [
             "ContactPoint"
@@ -211,7 +212,7 @@
           "items": {
             "allOf": [
               { "$ref": "#/definitions/Link" },
-              { "properties": { "type": { "enum": [ "Organization" ] } } }
+              { "properties": { "@type": { "enum": [ "Organization" ] } } }
             ]
           }
         },
@@ -262,12 +263,12 @@
           "type": "string",
           "format": "uri"
         },
-        "id": {
+        "@id": {
           "description": "The organization's unique identifier",
           "type": "string",
           "format": "uri"
         },
-        "type": {
+        "@type": {
           "type": "string",
           "enum": [
             "Organization"
@@ -289,16 +290,17 @@
           "format": "uri"
         },
         "isil": {
-          "type": "string",
-          "format": "uri"
+          "type": "string"
         },
         "dbsID": {
-          "type": "string",
-          "format": "uri"
+          "type": "string"
         },
         "parentOrganization": {
           "description": "The organization's superordinated organization",
-          "$ref": "#/definitions/Organization"
+          "allOf": [
+            { "$ref": "#/definitions/Link" },
+            { "properties": { "@type": { "enum": [ "Organization" ] } } }
+          ]
         },
         "rs": {
           "type": "string"
@@ -327,13 +329,7 @@
         "sameAs": {
           "type": "array",
           "items": {
-                    "allOf": [
-          {
-            "required": [
-              "name"
-            ]
-          }
-        ],"type": "string",
+            "type": "string",
             "format": "uri"
           }
         },
@@ -374,7 +370,7 @@
           "items": {
             "allOf": [
               { "$ref": "#/definitions/Link" },
-              { "properties": { "type": { "enum": [ "Comment" ] } } }
+              { "properties": { "@type": { "enum": [ "Comment" ] } } }
             ]
           }
         }
@@ -392,34 +388,34 @@
           "type": "string",
           "format": "uri"
         },
-        "id": {
+        "@id": {
           "description": "The customer relationship's unique identifier",
           "type": "string",
           "format": "uri"
         },
-        "type": {
+        "@type": {
           "type": "string",
           "enum": [
             "CustomerRelationship"
           ]
         },
-          "contactPoint": {
-            "description": "A contact point",
-            "type": "array",
-            "items": {
-              "allOf": [
-                { "$ref": "#/definitions/Link" },
-                { "properties": { "type": { "enum": [ "ContactPoint" ] } } }
-              ]
-            }
-          },
-        "businessPartner": {
-          "description": "The business partner of this customer relationship",
-          "type": "object",
+        "contactPoint": {
+          "description": "A contact point",
+          "type": "array",
           "items": {
             "allOf": [
               { "$ref": "#/definitions/Link" },
-              { "properties": { "type": { "enum": [ "Organization"] } } }
+              { "properties": { "@type": { "enum": [ "ContactPoint" ] } } }
+            ]
+          }
+        },
+        "businessPartner": {
+          "description": "The business partner of this customer relationship",
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "Organization"] } } }
             ]
           }
         },
@@ -429,17 +425,17 @@
           "items": {
             "allOf": [
               { "$ref": "#/definitions/Link" },
-              { "properties": { "type": { "enum": [ "Organization" ] } } }
+              { "properties": { "@type": { "enum": [ "Organization" ] } } }
             ]
           }
         },
         "product": {
           "description": "The product of this customer relationship",
-          "type": "object",
+          "type": "array",
           "items": {
             "allOf": [
               { "$ref": "#/definitions/Link" },
-              { "properties": { "type": { "enum": [ "Product" ] } } }
+              { "properties": { "@type": { "enum": [ "Product" ] } } }
             ]
           }
         },
@@ -461,7 +457,7 @@
           "items": {
             "allOf": [
               { "$ref": "#/definitions/Link" },
-              { "properties": { "type": { "enum": [ "Comment" ] } } }
+              { "properties": { "@type": { "enum": [ "Comment" ] } } }
             ]
           }
         }
@@ -479,12 +475,12 @@
           "type": "string",
           "format": "uri"
         },
-        "id": {
+        "@id": {
           "description": "The place's unique identifier",
           "type": "string",
           "format": "uri"
         },
-        "type": {
+        "@type": {
           "type": "string",
           "enum": [
             "Place"
@@ -527,7 +523,7 @@
           "type": "string",
           "format": "uri"
         },
-        "id": {
+        "@id": {
           "description": "The geo coordinates's unique identifier",
           "type": "string",
           "format": "uri"
@@ -555,12 +551,12 @@
           "type": "string",
           "format": "uri"
         },
-        "id": {
+        "@id": {
           "description": "The geo addresses' unique identifier",
           "type": "string",
           "format": "uri"
         },
-        "type": {
+        "@type": {
           "type": "string",
           "enum": [
             "PostalAddress"
@@ -570,24 +566,10 @@
           "type": "string"
         },
         "postalCode": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "number"
-            }
-          ]
+          "type": "string"
         },
         "postOfficeBoxNumber": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "number"
-            }
-          ]
+          "type": "string"
         },
         "addressLocality": {
           "type": "string"
@@ -612,12 +594,12 @@
           "type": "string",
           "format": "uri"
         },
-        "id": {
+        "@id": {
           "description": "The geo addresses' unique identifier",
           "type": "string",
           "format": "uri"
         },
-        "type": {
+        "@type": {
           "type": "string",
           "enum": [
             "OpeningHoursSpecification"
