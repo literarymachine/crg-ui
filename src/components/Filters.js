@@ -51,25 +51,25 @@ const Filters = ({filters}) => (
 
         <input
           type="radio"
-          value="CustomerRelation"
-          checked={filters["about.@type"] && filters["about.@type"].includes("CustomerRelation")}
+          value="CustomerRelationship"
+          checked={filters["about.@type"] && filters["about.@type"].includes("CustomerRelationship")}
           name="filter.about.@type"
-          id="type:CustomerRelation"
+          id="type:CustomerRelationship"
           onChange={SubmitForm}
         />
-        <label htmlFor="type:CustomerRelation" title="CustomerRelation">
-          <Icon type="CustomerRelation" />
+        <label htmlFor="type:CustomerRelationship" title="CustomerRelationship">
+          <Icon type="CustomerRelationship" />
         </label>
       </div>
 
       <div className="search-bar">
         <div className="search-container">
-          <input type="search" name="q" />
-          <input type="submit" />
+          <input type="search" name="q" placeholder="Search..." />
+          <input type="submit" className="btn" />
         </div>
 
         <div className="sort-container">
-          <select name="sort">
+          <select name="sort" className="btn">
             <option value="">Relevance</option>
             <option value="dateCreated:ASC">Date Created</option>
           </select>
