@@ -6,7 +6,7 @@ const icons = {
   ContactPoint: 'address-card',
   Organization: 'users',
   Product: 'barcode',
-  CustomerRelation: 'suitcase'
+  CustomerRelationship: 'suitcase'
 }
 
 const Icon = ({ type }) => (

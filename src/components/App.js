@@ -1,33 +1,43 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import 'font-awesome/css/font-awesome.css'
-import _ from 'lodash'
+// import _ from 'lodash'
 import PagedCollection from './PagedCollection'
 import WebPage from './WebPage'
 import Header from './Header'
 import Filters from './Filters'
+import Footer from './Footer'
 
 const App = ({ data, emitter }) => (
   <div id="wrapper">
-    <main className="main">
+    
+    <main className="container">
 
       <Header />
+      
       <Filters filters={data["filters"] || {"about.@type": [data.about["@type"]]}} />
-      {data['@type'] === 'PagedCollection' &&
-        <div>
-          <PagedCollection emitter={emitter} {...data} />
-          {!_.isEmpty(data["filters"]) &&
-            <section className="actions-container">
-              <a href={"#add-" + data["filters"]["about.@type"][0]} className="add-button">
-                <i className="fa fa-plus" aria-hidden="true" />
-              </a>
-            </section>
-          }
-        </div>
-      }
-      {data['@type'] === 'WebPage' &&
-        <WebPage emitter={emitter} {...data} />
-      }
+  
+      <div className="content">
+
+        {data['@type'] === 'PagedCollection' &&
+          <div>
+            <PagedCollection emitter={emitter} {...data} />
+            {/* {!_.isEmpty(data["filters"]) &&
+              <section className="actions-container">
+                <a href={"#add-" + data["filters"]["about.@type"][0]} className="addButton">
+                  <i className="fa fa-plus" aria-hidden="true" />
+                </a>
+              </section>
+            } */}
+          </div>
+        }
+        {data['@type'] === 'WebPage' &&
+          <WebPage emitter={emitter} {...data} />
+        }
+
+      </div>
+
+      <Footer />
 
     </main>
   </div>
