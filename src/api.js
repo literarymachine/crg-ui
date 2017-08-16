@@ -9,6 +9,18 @@ class Api {
     this.port = apiConfig.port
   }
 
+  save(data, callback) {
+    const response = {
+      "@type": "WebPage",
+      author: "user@localhost",
+      contributor: "user@localhost",
+      dateCreated: "2017",
+      dateModified: "2017",
+      about: data
+    }
+    callback(response)
+  }
+
   load (url, callback) {
     url = url === '/' ? '/resource/' : url
     const init = {

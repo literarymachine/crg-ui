@@ -8,20 +8,20 @@ import Header from './Header'
 import Filters from './Filters'
 import Footer from './Footer'
 
-const App = ({ data, emitter }) => (
+const App = ({ data }) => (
   <div id="wrapper">
-    
+
     <main className="container">
 
       <Header />
-      
+
       <Filters filters={data["filters"] || {"about.@type": [data.about["@type"]]}} />
-  
+
       <div className="content">
 
         {data['@type'] === 'PagedCollection' &&
           <div>
-            <PagedCollection emitter={emitter} {...data} />
+            <PagedCollection {...data} />
             {/* {!_.isEmpty(data["filters"]) &&
               <section className="actions-container">
                 <a href={"#add-" + data["filters"]["about.@type"][0]} className="addButton">
@@ -32,7 +32,7 @@ const App = ({ data, emitter }) => (
           </div>
         }
         {data['@type'] === 'WebPage' &&
-          <WebPage emitter={emitter} {...data} />
+          <WebPage {...data} />
         }
 
       </div>
@@ -44,8 +44,7 @@ const App = ({ data, emitter }) => (
 )
 
 App.propTypes = {
-  data: PropTypes.objectOf(PropTypes.any).isRequired,
-  emitter: PropTypes.objectOf(PropTypes.any).isRequired
+  data: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
 export default App

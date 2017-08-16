@@ -3,6 +3,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import withEmitter from './withEmitter'
+
 class Link extends React.Component {
   constructor(props) {
     super(props)
@@ -14,8 +16,7 @@ class Link extends React.Component {
   onClick(event) {
     if (!this.props.to.startsWith('#')) {
       event.preventDefault()
-      window.history.pushState(null, null, this.href)
-      window.dispatchEvent(new window.PopStateEvent('popstate'))
+      this.props.emitter.emit('load', this.href)
     }
   }
 
@@ -25,9 +26,9 @@ class Link extends React.Component {
 }
 
 Link.propTypes = {
+  emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   children: PropTypes.string.isRequired,
   to: PropTypes.string.isRequired
 }
 
-
-export default Link
+export default withEmitter(Link)
