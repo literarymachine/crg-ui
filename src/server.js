@@ -58,7 +58,7 @@ server.get(/^(.*)$/, function (req, res) {
       apiConfig
     }
     res.send(template({
-      body: renderToString(<Init {...data} />),
+      body: renderToString(<Init {...data} emitter={{}}  />),
       title: 'Hello from server',
       initialState: JSON.stringify(data)
     }))
