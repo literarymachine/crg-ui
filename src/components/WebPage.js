@@ -55,11 +55,13 @@ const WebPage = ({
         </tbody>
       </table>
     }
-    <pre>{JSON.stringify(about, null, 2)}</pre>
+    {/* <pre>{JSON.stringify(about, null, 2)}</pre> */}
     {about.location && about.location.geo &&
       <img alt="Location" src={`http://staticmap.openstreetmap.de/staticmap.php?center=${about.location.geo.lat},${about.location.geo.lon}&zoom=14&maptype=mapnik&markers=${about.location.geo.lat},${about.location.geo.lon},lightblue1`} />
     }
-    <Composer value={about} schema={schema} submit={value => emitter.emit('save', value)} />
+    <div className="Forms">
+      <Composer value={about} schema={schema} submit={value => emitter.emit('save', value)} />
+    </div>
     <pre>{JSON.stringify(about, null, 2)}</pre>
   </article>
 )

@@ -1,129 +1,187 @@
-fieldset {
-  border: 0;
-  padding: 0;
-  margin: 0;
-}
+@import 'Colors.pcss';
 
-legend {
-  padding-top: 10px;
-  display: table;
-}
+.Forms {
+  max-width: 70%;
+  margin: 0 auto;
 
-div.input.\@value {
-  width: 80%;
-  display: inline-block;
-  min-width: 400px;
-}
+  & fieldset {
+    padding: 0;
+    margin: 0;
+    border: none;
+  }
 
-div.select.\@language {
-  width: 20%;
-  display: inline-block;
-}
+  & input[type=text],
+  & textarea {
+    border-radius: 4px;
+    padding: 10px 5px;
+    border: 1px solid var(--blue);
+  }
 
-div.input.lat,
-div.input.lon {
-  width: 50%;
-  display: inline-block;
-}
+  & input[type=submit],
+  & select {
+    border: 1px solid var(--blue);
+    background-color: color(var(--blue) l(96%));
+    color: var(--blue);
+    font-size: 0.9rem;
+    padding: 10px 5px;
+    border-radius: 4px;
 
-select, input, textarea {
-  width: 100%;
-}
+    &:focus,
+    &:hover {
+      background-color: color(var(--blue) l(80%));
+    }
+  }
 
-input[type=checkbox] {
-  width: 10px;
-}
+  & input[type=submit] {
+    margin-top: 10px;
+    color: var(--white);
+    background-color: color(var(--blue) a(90%));
+    font-weight: bold;
+  }
 
-div.checkbox {
-  display: inline-block;
-}
+  & legend {
+    padding: 10px 0;
+    text-transform: capitalize;
+    font-weight: bold;
+    color: var(--blue);
+  }
 
-div.input,
-div.select {
-  display: flex;
-  flex-direction: column-reverse;
-  padding: 5px 0;
-}
+  & form div {
+    display: flex;
+    justify-content: center;
+    flex-direction: column-reverse;
+    position: relative;
 
-div.input span.label {
-  display: inline-block;
-  padding: 5px 0;
-}
+    & > label {
+      padding: 10px 0;
+      text-transform: capitalize;
+      font-weight: bold;
+      color: var(--blue);
+      position: relative;
+      left: -2px;
+    }
 
-.\@value {
-  flex: 1 400px;
-}
+    & ul {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+      border-left: 1px solid var(--blue);
+      border-right: 1px solid var(--blue);
 
-div.input.\@value span.label,
-div.textarea.\@value span.label,
-div.select.\@language span {
-  display: none;
-}
+      & li input[type=checkbox] {
+        display: none;
+      }
 
-div.textarea.\@value+div.select.\@language {
-  display: block;
-  width: 100%;
-}
+      & li label {
+        display: block;
+        background-color: color(var(--blue) l(96%));
+        color: var(--blue);
+        padding: 10px 5px;
+        border-bottom: 1px solid var(--blue);
 
-.error {
-  color: tomato;
-}
+        &::after {
+          font-family: FontAwesome;
+          content: '\F00C';
+          position: absolute;
+          right: 15px;
+        }
 
-::-webkit-input-placeholder {opacity: 0;}
-::-moz-placeholder          {opacity: 0;}
-:-moz-placeholder           {opacity: 0;}
-:-ms-input-placeholder      {opacity: 0;}
+        &:focus,
+        &:hover {
+          background-color: color(var(--blue) l(80%));
+        }
+      }
+    }
+  }
 
-.location ::-webkit-input-placeholder {opacity: 1;}
-.location ::-moz-placeholder          {opacity: 1;}
-.location :-moz-placeholder           {opacity: 1;}
-.location :-ms-input-placeholder      {opacity: 1;}
+  & form > div {
+    margin: 10px 0;
+    border-top: 1px solid var(--blue);
+  }
 
-.\@id input[type=checkbox] {
-  display: none;
-}
+  & .checkbox {
+    & input[type=checkbox] {
+      display: none;
+    }
 
-.input.\@id ul li>label,
-.checkbox.\@id>label {
-  display: block;
-  border: 1px solid black;
-}
+    & label {
+      background-color: color(var(--blue) l(96%));
+      color: var(--blue);
+      border: 1px solid var(--blue);
+      display: block;
+      padding: 10px 5px;
+      position: relative;
+      cursor: pointer;
+      border-radius: 4px;
 
-.input.\@id ul li>label:hover,
-.checkbox.\@id>label:hover {
-  background-color: #DDD;
-}
+      &:focus,
+      &:hover {
+        background-color: color(var(--blue) l(80%));
+      }
 
-.input.\@id ul li>label:after {
-  font-family: FontAwesome;
-  content: '\f00c';
-  float: right;
-}
+      &::after {
+        font-family: FontAwesome;
+        content: '\F00D';
+        position: absolute;
+        right: 15px;
+      }
+    }
+  }
 
-.checkbox.\@id>label:after {
-  font-family: FontAwesome;
-  content: '\f00d';
-  float: right;
-}
+  & .dropdown {
+    flex-direction: column;
+  }
 
-.input.\@id ul li,
-fieldset .input.\@id,
-.checkbox.\@id {
-  display: block;
-  padding-top: 5px;
-  width: 100%;
-}
+  & .multiple-container .sameAs:first-child {
+    & input {
+      margin-top: 0;
+    }
 
-.input.\@id ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
+    & label {
+      display: block;
+    }
+  }
 
-.multiple-container>div:not([class]) label {
-  display: none;
-}
+  & .multiple-container .sameAs {
+    & input {
+      margin-top: 5px;
+    }
 
-.multiple-container>div:not([class]):first-child label {
-  display: block;
+    & label {
+      display: none;
+    }
+  }
+
+  & .select {
+    margin-top: 10px;
+
+    & label {
+      display: none;
+    }
+  }
+
+  /* Custom */
+  & fieldset div.\@id {
+    margin-top: 10px;
+  }
+
+  & .\@context,
+  & .\@type {
+    display: none;
+  }
+
+  & .geo {
+    text-align: center;
+
+    & .\@id {
+      display: none;
+    }
+
+    & .lat,
+    & .lon {
+      min-width: 45%;
+      margin: 0 5px;
+      display: inline-flex;
+    }
+  }
 }
