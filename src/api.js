@@ -1,3 +1,5 @@
+/* global Headers */
+
 import fetch from 'isomorphic-fetch'
 import promise from 'es6-promise'
 
@@ -9,24 +11,37 @@ class Api {
     this.port = apiConfig.port
   }
 
+  save (data, callback) {
+    const url = '/resource/' + (data['@id'] || '')
+    fetch(this.host + ':' + this.port + url, {
+      method: 'POST',
+      mode: 'cors',
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      }),
+      body: JSON.stringify(data)
+    }).then(response => {
+      return(response.json())
+    }).then(data => {
+      callback(data)
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
   load (url, callback) {
     url = url === '/' ? '/resource/' : url
-    const init = {
-      headers: {
+    fetch(this.host + ':' + this.port + url, {
+      headers: new Headers({
         'Accept': 'application/json'
-      }
-    }
-    console.log('requested', url)
-    fetch(this.host + ':' + this.port + url, init)
-      .then(response => {
-        if (response.status >= 400) {
-          throw new Error("Bad response from server")
-        }
-        return response.json()
       })
-      .then(data => {
-        callback(data)
-      })
+    }).then(response => {
+      return(response.json())
+    }).then(data => {
+      callback(data)
+    }).catch(err => {
+      console.error(err)
+    })
   }
 }
 

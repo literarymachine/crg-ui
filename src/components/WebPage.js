@@ -1,7 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Composer } from 'json-pointer-form'
 
 import translate from './translate'
+import withEmitter from './withEmitter'
+
+import schema from '../json/schema.json'
+
+import '../styles/form.pcss'
 
 const WebPage = ({
   translate,
@@ -10,7 +16,8 @@ const WebPage = ({
   contributor,
   dateModified,
   author,
-  dateCreated
+  dateCreated,
+  emitter
 }) => (
   <article>
     <h1>{translate(about.name)}</h1>
@@ -48,15 +55,20 @@ const WebPage = ({
         </tbody>
       </table>
     }
-    <pre>{JSON.stringify(about, null, 2)}</pre>
+    {/* <pre>{JSON.stringify(about, null, 2)}</pre> */}
     {about.location && about.location.geo &&
       <img alt="Location" src={`http://staticmap.openstreetmap.de/staticmap.php?center=${about.location.geo.lat},${about.location.geo.lon}&zoom=14&maptype=mapnik&markers=${about.location.geo.lat},${about.location.geo.lon},lightblue1`} />
     }
+    <div className="Forms">
+      <Composer value={about} schema={schema} submit={value => emitter.emit('save', value)} />
+    </div>
+    <pre>{JSON.stringify(about, null, 2)}</pre>
   </article>
 )
 
 WebPage.propTypes = {
   translate: PropTypes.func.isRequired,
+  emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   moment: PropTypes.func.isRequired,
   about: PropTypes.objectOf(PropTypes.any).isRequired,
   author: PropTypes.string.isRequired,
@@ -65,4 +77,4 @@ WebPage.propTypes = {
   dateModified: PropTypes.string.isRequired
 }
 
-export default translate(WebPage)
+export default withEmitter(translate(WebPage))

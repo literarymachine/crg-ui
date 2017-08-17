@@ -12,6 +12,8 @@ Clone this repository:
 ```
 $ git clone https://github.com/literarymachine/crg-ui.git
 $ cd crg-ui
+$ git submodule init
+$ git submodule update
 ```
 
 Install node packages:

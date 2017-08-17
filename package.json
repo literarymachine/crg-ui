@@ -59,6 +59,7 @@
     "ignore-styles": "^5.0.1",
     "isomorphic-fetch": "^2.2.1",
     "jsdom": "^11.1.0",
+    "json-pointer-form": "file:local_modules/json-pointer-form",
     "lodash": "^4.17.4",
     "mitt": "^1.1.2",
     "moment": "^2.18.1",

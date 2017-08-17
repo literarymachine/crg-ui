@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Icon from './Icon'
 import Link from './Link'
+import withEmitter from './withEmitter'
 
 import '../styles/ItemList.pcss'
 
@@ -33,4 +34,4 @@ ItemList.propTypes = {
   emitter: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
-export default translate(ItemList)
+export default withEmitter(translate(ItemList))
