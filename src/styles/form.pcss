@@ -147,22 +147,22 @@
     flex-direction: column;
   }
 
-  & .multiple-container .sameAs:first-child {
+  & .multiple-container .input:first-child {
     & input {
       margin-top: 0;
     }
 
-    & label {
+    & label.title {
       display: block;
     }
   }
 
-  & .multiple-container .sameAs {
+  & .multiple-container .input {
     & input {
       margin-top: 5px;
     }
 
-    & label {
+    & label.title {
       display: none;
     }
   }
@@ -175,22 +175,17 @@
     }
   }
 
+  & .hidden {
+    display: none;
+  }
+
   /* Custom */
   & fieldset div.\@id {
     margin-top: 10px;
   }
 
-  & .\@context,
-  & .\@type {
-    display: none;
-  }
-
   & .geo {
     text-align: center;
-
-    & .\@id {
-      display: none;
-    }
 
     & .lat,
     & .lon {
