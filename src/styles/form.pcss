@@ -67,9 +67,23 @@
       list-style-type: none;
       border-left: 1px solid var(--blue);
       border-right: 1px solid var(--blue);
+      border-bottom: 1px solid var(--blue);
+      position: absolute;
+      width: 100%;
+      max-height: 150px;
+      z-index: 2;
+      overflow: auto;
+      bottom: 0;
+      transform: translateY(100%);
+      border-radius: 0 0 4px 4px;
 
       & li input[type=checkbox] {
         display: none;
+      }
+
+      & li:last-child label {
+        border-bottom: none;
+        border-radius: 0 0 4px 4px;
       }
 
       & li label {
@@ -129,6 +143,7 @@
   }
 
   & .dropdown {
+    position: relative;
     flex-direction: column;
   }
 
