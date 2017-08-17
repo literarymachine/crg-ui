@@ -36,6 +36,7 @@ import './styles/main.pcss'
       window.history.pushState(null, null, url)
       window.dispatchEvent(new window.PopStateEvent('popstate'))
     })
+    emitter.on('getOptions', ({term, types, callback}) => api.find(term, types, callback))
 
     let currentPathname = window.location.pathname + window.location.search
     window.addEventListener('popstate', () => {

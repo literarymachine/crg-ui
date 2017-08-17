@@ -14,7 +14,7 @@ const ItemList = ({ translate, listItems, emitter }) => (
       <li
         key={listItem.about['@id']}
         onMouseEnter={() => {
-          emitter.emit('hoverListItem', { id: listItem.about["@id"] })
+          emitter.emit('hoverListItem',  { id: listItem.about["@id"] })
         }}
       >
         <Icon type={listItem.about['@type']} />

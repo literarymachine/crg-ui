@@ -43,6 +43,22 @@ class Api {
       console.error(err)
     })
   }
+
+  find (term, types, callback) {
+    const url = `/resource/?q=${term}` + (types ? `&filter.about.@type=${types.join(',')}` : '')
+    fetch(this.host + ':' + this.port + url, {
+      headers: new Headers({
+        'Accept': 'application/json'
+      })
+    }).then(response => {
+      return(response.json())
+    }).then(data => {
+      callback(data)
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
 }
 
 export default Api
