@@ -5,6 +5,13 @@ import promise from 'es6-promise'
 
 promise.polyfill()
 
+const toJson = response => {
+  if (response.status >= 400) {
+    throw new Error("Bad response from server")
+  }
+  return response.json()
+}
+
 class Api {
   constructor (apiConfig) {
     this.host = apiConfig.host
@@ -21,7 +28,7 @@ class Api {
       }),
       body: JSON.stringify(data)
     }).then(response => {
-      return(response.json())
+      return(toJson(response))
     }).then(data => {
       callback(data)
     }).catch(err => {
@@ -36,13 +43,29 @@ class Api {
         'Accept': 'application/json'
       })
     }).then(response => {
-      return(response.json())
+      return(toJson(response))
     }).then(data => {
       callback(data)
     }).catch(err => {
       console.error(err)
     })
   }
+
+  find (term, types, callback) {
+    const url = `/resource/?q=${term}` + (types ? `&filter.about.@type=${types.join(',')}` : '')
+    fetch(this.host + ':' + this.port + url, {
+      headers: new Headers({
+        'Accept': 'application/json'
+      })
+    }).then(response => {
+      return(toJson(response))
+    }).then(data => {
+      callback(data)
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
 }
 
 export default Api

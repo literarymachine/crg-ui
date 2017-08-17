@@ -60,7 +60,13 @@ const WebPage = ({
       <img alt="Location" src={`http://staticmap.openstreetmap.de/staticmap.php?center=${about.location.geo.lat},${about.location.geo.lon}&zoom=14&maptype=mapnik&markers=${about.location.geo.lat},${about.location.geo.lon},lightblue1`} />
     }
     <div className="Forms">
-      <Composer value={about} schema={schema} submit={value => emitter.emit('save', value)} />
+      <Composer
+        value={about}
+        schema={schema}
+        submit={value => emitter.emit('save', value)}
+        getOptions={(term, types, callback) => emitter.emit('getOptions', {term, types, callback})}
+        getLabel={value => value && value["name"] ? value["name"] : null}
+      />
     </div>
     <pre>{JSON.stringify(about, null, 2)}</pre>
   </article>
