@@ -14,10 +14,12 @@ class EmittProvider extends React.Component {
 }
 
 EmittProvider.childContextTypes = {
-  emitter: PropTypes.objectOf(PropTypes.any).isRequired
+  emitter: PropTypes.objectOf(PropTypes.any).isRequired,
+  children: PropTypes.node.isRequired,
 }
 
 EmittProvider.propTypes = {
+  children: PropTypes.node.isRequired,  
   emitter: PropTypes.objectOf(PropTypes.any).isRequired
 }
 

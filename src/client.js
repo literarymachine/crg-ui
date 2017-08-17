@@ -38,7 +38,7 @@ import './styles/main.pcss'
     })
 
     let currentPathname = window.location.pathname + window.location.search
-    window.addEventListener('popstate', e => {
+    window.addEventListener('popstate', () => {
       const url = window.location.pathname + window.location.search
       if (currentPathname === url) {
         return
