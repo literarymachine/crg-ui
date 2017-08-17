@@ -161,7 +161,10 @@
           "type": "string"
         },
         "description": {
-          "type": "string"
+          "type": "string",
+          "_display": {
+            "rows": 5
+          }
         },
         "logo": {
           "type": "string",
