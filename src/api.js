@@ -1,3 +1,5 @@
+/* global Headers */
+
 import fetch from 'isomorphic-fetch'
 import promise from 'es6-promise'
 
