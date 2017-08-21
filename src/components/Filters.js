@@ -9,6 +9,13 @@ import withEmitter from './withEmitter'
 
 import Icon from './Icon'
 
+const submit = (form, emitter) => {
+  const formData = new FormData(form)
+  const parameters = [...formData.entries()]
+    .map(p => encodeURIComponent(p[0]) + "=" + encodeURIComponent(p[1])).join("&")
+  emitter.emit('load', '/resource/?' + parameters)
+}
+
 const onSubmit = (e, emitter) => {
   e.preventDefault()
   submit(e.target, emitter)
@@ -17,13 +24,6 @@ const onSubmit = (e, emitter) => {
 const onChange = (e, emitter) => {
   e.preventDefault()
   submit(e.target.form, emitter)
-}
-
-const submit = (form, emitter) => {
-  const formData = new FormData(form)
-  let parameters = [...formData.entries()]
-    .map(p => encodeURIComponent(p[0]) + "=" + encodeURIComponent(p[1])).join("&")
-  emitter.emit('load', '/resource/?' + parameters)
 }
 
 const Filters = ({filters, emitter}) => (
