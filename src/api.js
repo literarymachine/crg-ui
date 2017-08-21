@@ -7,6 +7,7 @@ promise.polyfill()
 
 const toJson = response => {
   if (response.status >= 400) {
+    console.error(response)
     throw new Error("Bad response from server")
   }
   return response.json()
