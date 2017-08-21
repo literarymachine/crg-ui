@@ -1,25 +1,46 @@
+/* global FormData */
+
 import React from 'react'
 import PropTypes from 'prop-types'
 
 import '../styles/Filters.pcss'
 
+import withEmitter from './withEmitter'
+
 import Icon from './Icon'
 
-const SubmitForm = (e) => e.target.form.submit()
+const onSubmit = (e, emitter) => {
+  e.preventDefault()
+  submit(e.target, emitter)
+}
 
-const Filters = ({filters}) => (
+const onChange = (e, emitter) => {
+  e.preventDefault()
+  submit(e.target.form, emitter)
+}
+
+const submit = (form, emitter) => {
+  const formData = new FormData(form)
+  let parameters = [...formData.entries()]
+    .map(p => encodeURIComponent(p[0]) + "=" + encodeURIComponent(p[1])).join("&")
+  emitter.emit('load', '/resource/?' + parameters)
+}
+
+const Filters = ({filters, emitter}) => (
   <nav className="Filters">
 
-    <form action="/resource/">
+    <form action="/resource/" onSubmit={(evt) => onSubmit(evt, emitter)}>
 
       <div className="types-container">
         <input
           type="radio"
           value="ContactPoint"
-          checked={filters["about.@type"] && filters["about.@type"].includes("ContactPoint")}
+          checked={filters.hasOwnProperty("about.@type")
+            && filters["about.@type"].includes("ContactPoint")
+          }
           name="filter.about.@type"
           id="type:ContactPoint"
-          onChange={SubmitForm}
+          onChange={(evt) => onChange(evt, emitter)}
         />
         <label htmlFor="type:ContactPoint" title="ContactPoint">
           <Icon type="ContactPoint" />
@@ -28,10 +49,12 @@ const Filters = ({filters}) => (
         <input
           type="radio"
           value="Organization"
-          checked={filters["about.@type"] && filters["about.@type"].includes("Organization")}
+          checked={filters.hasOwnProperty("about.@type")
+            && filters["about.@type"].includes("Organization")
+          }
           name="filter.about.@type"
           id="type:Organization"
-          onChange={SubmitForm}
+          onChange={(evt) => onChange(evt, emitter)}
         />
         <label htmlFor="type:Organization" title="Organization">
           <Icon type="Organization" />
@@ -40,10 +63,12 @@ const Filters = ({filters}) => (
         <input
           type="radio"
           value="Product"
-          checked={filters["about.@type"] && filters["about.@type"].includes("Product")}
+          checked={filters.hasOwnProperty("about.@type")
+            && filters["about.@type"].includes("Product")
+          }
           name="filter.about.@type"
           id="type:Product"
-          onChange={SubmitForm}
+          onChange={(evt) => onChange(evt, emitter)}
         />
         <label htmlFor="type:Product" title="Product">
           <Icon type="Product" />
@@ -52,10 +77,12 @@ const Filters = ({filters}) => (
         <input
           type="radio"
           value="CustomerRelationship"
-          checked={filters["about.@type"] && filters["about.@type"].includes("CustomerRelationship")}
+          checked={filters.hasOwnProperty("about.@type")
+            && filters["about.@type"].includes("CustomerRelationship")
+          }
           name="filter.about.@type"
           id="type:CustomerRelationship"
-          onChange={SubmitForm}
+          onChange={(evt) => onChange(evt, emitter)}
         />
         <label htmlFor="type:CustomerRelationship" title="CustomerRelationship">
           <Icon type="CustomerRelationship" />
@@ -69,7 +96,7 @@ const Filters = ({filters}) => (
         </div>
 
         <div className="sort-container">
-          <select name="sort" className="btn">
+          <select name="sort" className="btn" onChange={(evt) => onChange(evt, emitter)}>
             <option value="">Relevance</option>
             <option value="dateCreated:ASC">Date Created</option>
           </select>
@@ -82,7 +109,8 @@ const Filters = ({filters}) => (
 )
 
 Filters.propTypes = {
-  filters: PropTypes.objectOf(PropTypes.any).isRequired
+  filters: PropTypes.objectOf(PropTypes.any).isRequired,
+  emitter: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
-export default Filters
+export default withEmitter(Filters)
