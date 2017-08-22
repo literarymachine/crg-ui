@@ -6,7 +6,7 @@ import PagedCollection from './PagedCollection'
 import WebPage from './WebPage'
 import Header from './Header'
 import Filters from './Filters'
-import Footer from './Footer'
+// import Footer from './Footer'
 
 const App = ({ data }) => (
   <div id="wrapper">
@@ -37,7 +37,7 @@ const App = ({ data }) => (
 
       </div>
 
-      <Footer />
+      {/* <Footer /> */}
 
     </main>
   </div>
