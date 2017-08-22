@@ -4,6 +4,8 @@ import PropTypes from 'prop-types'
 import ItemList from './ItemList'
 import translate from './translate'
 
+import '../styles/PagedCollection.pcss'
+
 const PagedCollection = ({ translate, member }) => (
   <section className="PagedCollection">
     <h1>{translate('PagedCollection.totalItems', { smart_count: member.length })}</h1>
