@@ -166,14 +166,14 @@ body {
 }
 
 /* TARGETS */
-.WebPage > .page:target ~ .page:last-child,
-.WebPage > .page {
+.pages > .page:target ~ .page:last-child,
+.pages > .page {
   display: none;
 }
 
 /* :last-child works, but for some reason .page:last-child will not */
-.WebPage > :last-child,
-.WebPage > .page:target {
+.pages > :last-child,
+.pages > .page:target {
   display: block;
 }
 
@@ -184,11 +184,11 @@ body {
   @media (max-width: 576px) {
     max-width: 100%;
   }
+}
 
-  & .controls {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    margin-bottom: 10px;
-  }
+.controls {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
 }

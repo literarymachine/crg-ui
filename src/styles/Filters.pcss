@@ -2,9 +2,43 @@
 
 .Filters {
   z-index: 2;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.16), 0 3px 5px rgba(0, 0, 0, 0.23);
+
+  & .filterBox {
+    width: 25%;
+    display: inline-flex;
+    flex-flow: column wrap;
+  }
+
+  & .addNew {
+    text-align: center;
+    background-color: color(var(--blue) a(70%));
+    transition: 0.3s all;
+    padding: 5px 0;
+    border-top: 1px solid color(var(--white) a(14%));
+    border-bottom: 1px solid color(var(--white) a(14%));
+    border-right: 1px solid color(var(--white) a(14%));
+
+    & a {
+      display: block;
+      color: var(--white);
+    }
+
+    &:hover {
+      background-color: var(--orange);
+    }
+  }
 
   & input[type=radio] {
     display: none;
+
+    &:checked + label + .addNew {
+      background-color: color(var(--blue) a(80%));
+
+      &:hover {
+        background-color: var(--orange);
+      }
+    }
 
     & + label {
       color: var(--white);
@@ -12,8 +46,7 @@
       position: relative;
       padding-bottom: 5px;
       padding-top: 10px;
-      display: inline-block;
-      width: 25%;
+      width: 100%;
       text-align: center;
       font-size: 3rem;
       cursor: pointer;
@@ -49,7 +82,6 @@
   & .search-bar {
     background-color: color(var(--blue) a(80%));
     padding: 10px;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.16), 0 3px 5px rgba(0, 0, 0, 0.23);
     display: flex;
 
     @media (max-width: 576px) {
