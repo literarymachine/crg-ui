@@ -1,0 +1,61 @@
+@import './Colors.pcss';
+
+.ResourceTable {
+  margin-top: 25px;
+  border-collapse: collapse;
+  width: 100%;
+
+  & a {
+    color: var(--blue);
+    text-decoration: none;
+    display: block;
+    transition: all 0.3s;
+
+    &:hover {
+      color: var(--orange);
+    }
+  }
+
+  & td {
+    padding: 8px 0;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #aabed2;
+    font-size: 0.9rem;
+
+    & > div,
+    & > div > div {
+      padding: 10px 0;
+      border-bottom: 1px solid color(var(--blue) a(12%));
+
+      &:first-child {
+        padding-top: 0;
+      }
+
+      &:last-child {
+        padding-bottom: 0;
+        border: none;
+      }
+    }
+
+    &:first-child {
+      font-weight: bold;
+      color: var(--blue);
+    }
+  }
+
+  & img {
+    max-width: 100%;
+  }
+}
+
+/* Remove from here */
+article h1 {
+  color: var(--blue);
+}
+
+.alignRight {
+  color: var(--blue);
+  text-align: right;
+  font-size: 0.8rem;
+}

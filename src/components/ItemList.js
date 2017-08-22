@@ -11,8 +11,8 @@ const ItemList = ({ translate, listItems }) => (
   <ul className="ItemList" >
     {listItems.map(listItem => (
       <li key={listItem.about['@id']}>
-        <Icon type={listItem.about['@type']} />
         <Link to={listItem.about['@id']}>
+          <Icon type={listItem.about['@type']} />&nbsp;
           {translate(listItem.about.name) || listItem.about['@id']}
         </Link>
       </li>

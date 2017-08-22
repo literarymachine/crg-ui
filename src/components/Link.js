@@ -25,7 +25,10 @@ class Link extends React.Component {
 
 Link.propTypes = {
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
-  children: PropTypes.string.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]).isRequired,
   to: PropTypes.string.isRequired
 }
 

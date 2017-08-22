@@ -1,1 +1,24 @@
 @import './Colors.pcss';
+
+.ItemList {
+  font-size: 1.1rem;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+
+  & a {
+    color: color(var(--blue) l(20%));
+    text-decoration: none;
+    display: block;
+  }
+
+  & li {
+    color: color(var(--blue) l(20%));
+    padding: 10px;
+    border-bottom: 1px solid color(var(--blue) a(25%));
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}

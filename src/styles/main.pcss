@@ -5,6 +5,10 @@
   word-wrap: break-word;
 }
 
+img {
+  max-width: 100%;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -29,6 +33,10 @@ body {
   overflow: auto;
   padding: 20px;
   position: relative;
+
+  @media (max-width: 576px) {
+    padding: 10px;
+  }
 }
 
 .circleBtn {
@@ -48,13 +56,16 @@ body {
 .rectangleBtn {
   padding: 5px 15px;
   background-color: tomato;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   border-radius: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 40px;
   cursor: pointer;
+  color: white;
+  text-decoration: none;
+  transition: all 0.5s;
 
   &:focus {
     background-color: color(tomato l(40%));
@@ -96,6 +107,9 @@ body {
   padding: 5px 10px;
   font-weight: bold;
   font-size: 0.9rem;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: all 0.5s;
 
   &:focus,
   &:hover {
@@ -148,5 +162,33 @@ body {
 
   &:hover {
     background-color: color(var(--success) l(60%));
+  }
+}
+
+/* TARGETS */
+.WebPage > .page:target ~ .page:last-child,
+.WebPage > .page {
+  display: none;
+}
+
+/* :last-child works, but for some reason .page:last-child will not */
+.WebPage > :last-child,
+.WebPage > .page:target {
+  display: block;
+}
+
+.WebPage {
+  max-width: 80%;
+  margin: 0 auto;
+
+  @media (max-width: 576px) {
+    max-width: 100%;
+  }
+
+  & .controls {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
   }
 }
