@@ -17,8 +17,8 @@ const ItemList = ({ translate, listItems, emitter }) => (
           emitter.emit('hoverListItem',  { id: listItem.about["@id"] })
         }}
       >
-        <Icon type={listItem.about['@type']} />
         <Link to={listItem.about['@id']}>
+          <Icon type={listItem.about['@type']} />&nbsp;
           {translate(listItem.about.name) || listItem.about['@id']}
         </Link>
       </li>
