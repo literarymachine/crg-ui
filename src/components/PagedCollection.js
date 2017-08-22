@@ -27,7 +27,9 @@ const PagedCollection = ({ translate, member, emitter }) => (
       />
     </div>
     <div className="Forms page" id="addOrganization">
-      <a href="#list">List</a>
+      <div className="controls">
+        <a href="#list" className="rectangleBtn primary"><span>List</span> <i className="fa fa-list" aria-hidden="true" /></a>
+      </div>
       <h1>Add Organization</h1>
       <Composer
         value={{"@type": "Organization"}}
@@ -38,7 +40,9 @@ const PagedCollection = ({ translate, member, emitter }) => (
       />
     </div>
     <div className="Forms page" id="addProduct">
-      <a href="#list">List</a>
+      <div className="controls">
+        <a href="#list" className="rectangleBtn primary"><span>List</span> <i className="fa fa-list" aria-hidden="true" /></a>
+      </div>
       <h1>Add Product</h1>
       <Composer
         value={{"@type": "Product"}}
@@ -49,7 +53,9 @@ const PagedCollection = ({ translate, member, emitter }) => (
       />
     </div>
     <div className="Forms page" id="addCustomerRelationship">
-      <a href="#list">List</a>
+      <div className="controls">
+        <a href="#list" className="rectangleBtn primary"><span>List</span> <i className="fa fa-list" aria-hidden="true" /></a>
+      </div>
       <h1>Add CustomerRelationship</h1>
       <Composer
         value={{"@type": "CustomerRelationship"}}
