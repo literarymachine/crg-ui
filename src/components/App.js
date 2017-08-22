@@ -15,7 +15,7 @@ const App = ({ data }) => (
 
       <Header />
 
-      <Filters filters={data["filters"] || {"about.@type": [data.about["@type"]]}} />
+      <Filters filters={data["filters"] || {"about.@type": [data.about["@type"]]}} extended={data['@type'] === 'PagedCollection'} />
 
       <div className="content">
 
