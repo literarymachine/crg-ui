@@ -37,9 +37,17 @@ const WebPage = ({
         getLabel={value => value && value["name"] ? value["name"] : null}
       />
     </div>
+    <div className="page" id="json">
+      <div className="controls">
+        <a href="#view" className="rectangleBtn primary"><span>View</span> <i className="fa fa-eye" aria-hidden="true" /></a>
+        <a href="#edit" className="rectangleBtn warning"><span>Edit</span> <i className="fa fa-edit" aria-hidden="true" /></a>
+      </div>
+      <pre>{JSON.stringify(about, null, 2)}</pre>
+    </div>
     <div className="page" id="view">
 
       <div className="controls">
+        <a href="#json" className="rectangleBtn primary"><span>JSON</span> <i className="fa fa-eye" aria-hidden="true" /></a>
         <a href="#edit" className="rectangleBtn warning"><span>Edit</span> <i className="fa fa-edit" aria-hidden="true" /></a>
       </div>
 

@@ -6,12 +6,12 @@ import formatURL from '../common'
 import '../styles/ResourceTable.pcss'
 
 const Location = ({location}) => (
-  
+
   <div>
     {location.name &&
       <div>{location.name}</div>
     }
-    
+
     {location.address &&
       <div>
         {location.address.streetAddress &&
@@ -28,7 +28,7 @@ const Location = ({location}) => (
     }
 
     {location.openingHoursSpecification &&
-      <div>       
+      <div>
         {location.openingHoursSpecification.comment &&
           <div>{location.openingHoursSpecification.comment}</div>
         }
@@ -121,7 +121,7 @@ const ResourceTable = ({ data }) => (
         <td>{data.comment}</td>
       </tr>
       } */}
-      
+
       {data.dbsID &&
       <tr>
         <td>dbsID</td>
@@ -172,7 +172,7 @@ const ResourceTable = ({ data }) => (
       {data.parentOrganization &&
         <tr>
           <td>Parent Organization</td>
-          <td>  
+          <td>
             <a href={`/resource/${data.parentOrganization['@id']}`}><Icon type={data.parentOrganization['@type']} /> {data.parentOrganization.name}</a>
           </td>
         </tr>
@@ -181,8 +181,20 @@ const ResourceTable = ({ data }) => (
       {data.provides &&
         <tr>
           <td>Provides</td>
-          <td>  
+          <td>
             <a target="_blank" href={data.provides}><i className="fa fa-fw fa-external-link-square" /> {formatURL(data.provides)}</a>
+          </td>
+        </tr>
+      }
+
+      {data.contactPoint &&
+        <tr>
+          <td>Contact Point</td>
+          <td>
+            {data.contactPoint.map(contactPoint => (
+              <div key={contactPoint['@id']} ><a href={`/resource/${contactPoint['@id']}`}><Icon type={contactPoint['@type']} /> {contactPoint.name}</a></div>
+            ))
+            }
           </td>
         </tr>
       }
@@ -259,7 +271,7 @@ const ResourceTable = ({ data }) => (
       {data.image &&
         <img src={data.image} alt={data.image} />
       }
-      
+
     </tbody>
   </table>
 )
