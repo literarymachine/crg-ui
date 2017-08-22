@@ -1,9 +1,10 @@
 @import 'Colors.pcss';
 
-.Forms {
-  max-width: 70%;
-  margin: 0 auto;
+::placeholder {
+  text-transform: capitalize;
+}
 
+.Forms {
   & fieldset {
     padding: 0;
     margin: 0;
@@ -25,18 +26,21 @@
     font-size: 0.9rem;
     padding: 10px 5px;
     border-radius: 4px;
+    transition: all 0.5s;
 
     &:focus,
     &:hover {
-      background-color: color(var(--blue) l(80%));
+      background-color: color(var(--blue) l(60%));
     }
   }
 
   & input[type=submit] {
-    margin-top: 10px;
+    margin-top: 15px;
     color: var(--white);
     background-color: color(var(--blue) a(90%));
     font-weight: bold;
+    padding: 10px;
+    float: right;
   }
 
   & legend {
@@ -92,6 +96,7 @@
         color: var(--blue);
         padding: 10px 5px;
         border-bottom: 1px solid var(--blue);
+        transition: all 0.5s;
 
         &::after {
           font-family: FontAwesome;
@@ -110,7 +115,8 @@
 
   & form > div {
     margin: 10px 0;
-    border-top: 1px solid var(--blue);
+
+    /* border-top: 1px solid var(--blue); */
   }
 
   & .checkbox {
@@ -127,10 +133,16 @@
       position: relative;
       cursor: pointer;
       border-radius: 4px;
+      padding-right: 30px;
+      transition: all 0.5s;
 
       &:focus,
       &:hover {
         background-color: color(var(--blue) l(80%));
+      }
+
+      &:hover::after {
+        color: var(--danger);
       }
 
       &::after {
@@ -138,6 +150,13 @@
         content: '\F00D';
         position: absolute;
         right: 15px;
+        top: 0;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 2;
       }
     }
   }
