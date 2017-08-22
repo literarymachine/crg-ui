@@ -32,61 +32,90 @@ const Filters = ({filters, emitter}) => (
     <form action="/resource/" onSubmit={(evt) => onSubmit(evt, emitter)}>
 
       <div className="types-container">
-        <input
-          type="radio"
-          value="ContactPoint"
-          checked={filters.hasOwnProperty("about.@type")
-            && filters["about.@type"].includes("ContactPoint")
-          }
-          name="filter.about.@type"
-          id="type:ContactPoint"
-          onChange={(evt) => onChange(evt, emitter)}
-        />
-        <label htmlFor="type:ContactPoint" title="ContactPoint">
-          <Icon type="ContactPoint" />
-        </label>
+        <div className="filterBox">
+          <input
+            type="radio"
+            value="ContactPoint"
+            checked={filters.hasOwnProperty("about.@type")
+              && filters["about.@type"].includes("ContactPoint")
+            }
+            name="filter.about.@type"
+            id="type:ContactPoint"
+            onChange={(evt) => onChange(evt, emitter)}
+          />
+          <label htmlFor="type:ContactPoint" title="ContactPoint">
+            <Icon type="ContactPoint" />
+          </label>
+          <div className="addNew">
+            <a title="Add Contact Point" href="/resource/#addContactPoint">
+              <i className="fa fa-plus" aria-hidden="true" />
+            </a>
+          </div>
+        </div>
 
-        <input
-          type="radio"
-          value="Organization"
-          checked={filters.hasOwnProperty("about.@type")
-            && filters["about.@type"].includes("Organization")
-          }
-          name="filter.about.@type"
-          id="type:Organization"
-          onChange={(evt) => onChange(evt, emitter)}
-        />
-        <label htmlFor="type:Organization" title="Organization">
-          <Icon type="Organization" />
-        </label>
+        <div className="filterBox">
+          <input
+            type="radio"
+            value="Organization"
+            checked={filters.hasOwnProperty("about.@type")
+              && filters["about.@type"].includes("Organization")
+            }
+            name="filter.about.@type"
+            id="type:Organization"
+            onChange={(evt) => onChange(evt, emitter)}
+          />
+          <label htmlFor="type:Organization" title="Organization">
+            <Icon type="Organization" />
+          </label>
+          <div className="addNew">
+            <a title="Add Organization" href="/resource/#addOrganization">
+              <i className="fa fa-plus" aria-hidden="true" />
+            </a>
+          </div>
+        </div>
 
-        <input
-          type="radio"
-          value="Product"
-          checked={filters.hasOwnProperty("about.@type")
-            && filters["about.@type"].includes("Product")
-          }
-          name="filter.about.@type"
-          id="type:Product"
-          onChange={(evt) => onChange(evt, emitter)}
-        />
-        <label htmlFor="type:Product" title="Product">
-          <Icon type="Product" />
-        </label>
+        <div className="filterBox">
+          <input
+            type="radio"
+            value="Product"
+            checked={filters.hasOwnProperty("about.@type")
+              && filters["about.@type"].includes("Product")
+            }
+            name="filter.about.@type"
+            id="type:Product"
+            onChange={(evt) => onChange(evt, emitter)}
+          />
+          <label htmlFor="type:Product" title="Product">
+            <Icon type="Product" />
+          </label>
+          <div className="addNew">
+            <a title="Add Product" href="/resource/#addProduct">
+              <i className="fa fa-plus" aria-hidden="true" />
+            </a>
+          </div>
+        </div>
 
-        <input
-          type="radio"
-          value="CustomerRelationship"
-          checked={filters.hasOwnProperty("about.@type")
-            && filters["about.@type"].includes("CustomerRelationship")
-          }
-          name="filter.about.@type"
-          id="type:CustomerRelationship"
-          onChange={(evt) => onChange(evt, emitter)}
-        />
-        <label htmlFor="type:CustomerRelationship" title="CustomerRelationship">
-          <Icon type="CustomerRelationship" />
-        </label>
+        <div className="filterBox">
+          <input
+            type="radio"
+            value="CustomerRelationship"
+            checked={filters.hasOwnProperty("about.@type")
+              && filters["about.@type"].includes("CustomerRelationship")
+            }
+            name="filter.about.@type"
+            id="type:CustomerRelationship"
+            onChange={(evt) => onChange(evt, emitter)}
+          />
+          <label htmlFor="type:CustomerRelationship" title="CustomerRelationship">
+            <Icon type="CustomerRelationship" />
+          </label>
+          <div className="addNew">
+            <a title="Add Customer Relationship" href="/resource/#addCustomerRelationship">
+              <i className="fa fa-plus" aria-hidden="true" />
+            </a>
+          </div>
+        </div>
+
       </div>
 
       <div className="search-bar">
