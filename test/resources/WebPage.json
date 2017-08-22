@@ -21,14 +21,7 @@
       } ],
       "@type" : "Grant"
     } ],
-    "provides" : [ {
-      "@type" : "Service",
-      "name" : [ {
-        "@value" : "Test Service",
-        "@language" : "en"
-      } ],
-      "@id" : "urn:uuid:cd68de41-8f31-415c-8688-809cd32056ea"
-    } ],
+    "provides" : "http://opac.bib.rwth-aachen.de",
     "agentIn" : [ {
       "@type" : "Action",
       "name" : [ {
