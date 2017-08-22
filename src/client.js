@@ -33,6 +33,9 @@ import './styles/main.pcss'
     emitter.on('save', data => api.save(data, response => renderApp(response, emitter)))
     // Read data from the API
     emitter.on('load', url => {
+      const parser = document.createElement('a')
+      parser.href = url
+      window.location.hash = parser.hash
       window.history.pushState(null, null, url)
       window.dispatchEvent(new window.PopStateEvent('popstate'))
     })
