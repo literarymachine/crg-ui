@@ -14,7 +14,9 @@ import '../styles/form.pcss'
 const PagedCollection = ({ translate, member, emitter }) => (
   <section className="PagedCollection pages">
     <div className="Forms page" id="addContactPoint">
-      <a href="#list">List</a>
+      <div className="controls">
+        <a href="#list" className="rectangleBtn primary"><span>List</span> <i className="fa fa-list" aria-hidden="true" /></a>
+      </div>
       <h1>Add Contact Point</h1>
       <Composer
         value={{"@type": "ContactPoint"}}
