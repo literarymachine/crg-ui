@@ -1,9 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Composer } from 'json-pointer-form'
+import ResourceTable from './ResourceTable'
 
 import translate from './translate'
 import withEmitter from './withEmitter'
+import formatURL from '../common'
 
 import schema from '../json/schema.json'
 
@@ -19,47 +21,14 @@ const WebPage = ({
   dateCreated,
   emitter
 }) => (
-  <article>
-    <h1>{translate(about.name)}</h1>
-    <p>
-      {translate('WebPage.lastEdited', {
-        contributor,
-        dateModified: moment(dateModified).calendar()
-      })}
-    </p>
-    <p>
-      {translate('WebPage.created', {
-        author,
-        dateCreated: moment(dateCreated).calendar()
-      })}
-    </p>
-    {about.location && about.location.address &&
-      <table>
-        <tbody>
-          <tr>
-            <td>Street address</td>
-            <td>{about.location.address.streetAddress}</td>
-          </tr>
-          <tr>
-            <td>City</td>
-            <td>{about.location.address.addressLocality}</td>
-          </tr>
-          <tr>
-            <td>Region</td>
-            <td>{about.location.address.addressRegion}</td>
-          </tr>
-          <tr>
-            <td>Country</td>
-            <td>{about.location.address.addressCountry}</td>
-          </tr>
-        </tbody>
-      </table>
-    }
-    {/* <pre>{JSON.stringify(about, null, 2)}</pre> */}
-    {about.location && about.location.geo &&
-      <img alt="Location" src={`http://staticmap.openstreetmap.de/staticmap.php?center=${about.location.geo.lat},${about.location.geo.lon}&zoom=14&maptype=mapnik&markers=${about.location.geo.lat},${about.location.geo.lon},lightblue1`} />
-    }
-    <div className="Forms">
+
+  <article className="WebPage">
+
+    <div className="Forms page" id="edit">
+      <div className="controls">
+        <a href="#view" className="rectangleBtn primary"><span>View</span> <i className="fa fa-eye" aria-hidden="true" /></a>
+      </div>
+
       <Composer
         value={about}
         schema={schema}
@@ -68,7 +37,44 @@ const WebPage = ({
         getLabel={value => value && value["name"] ? value["name"] : null}
       />
     </div>
-    <pre>{JSON.stringify(about, null, 2)}</pre>
+    <div className="page" id="view">
+
+      <div className="controls">
+        <a href="#edit" className="rectangleBtn warning"><span>Edit</span> <i className="fa fa-edit" aria-hidden="true" /></a>
+      </div>
+
+      <p title={moment(dateModified).calendar()} className="alignRight">
+        {translate('WebPage.lastEdited', {
+          contributor,
+          dateModified: moment(dateModified).fromNow()
+        })}
+      </p>
+      <p title={moment(dateCreated).calendar()} className="alignRight">
+        {translate('WebPage.created', {
+          author,
+          dateCreated: moment(dateCreated).fromNow()
+        })}
+      </p>
+
+      <h1>{translate(about.name)}</h1>
+      {about.description &&
+        <p>{about.description}</p>
+      }
+
+      {about.logo &&
+        <img src={about.logo} alt={about.name} />
+      }
+
+      {about.url &&
+        <a target="_blank" className='btn' href={about.url} alt={about.url}><i className="fa fa-external-link" /> {formatURL(about.url)}</a>
+      }
+      
+      <ResourceTable data={about} />
+
+    </div>
+
+    {/* <pre>{JSON.stringify(about, null, 2)}</pre> */}
+
   </article>
 )
 

@@ -164,3 +164,31 @@ body {
     background-color: color(var(--success) l(60%));
   }
 }
+
+/* TARGETS */
+.WebPage > .page:target ~ .page:last-child,
+.WebPage > .page {
+  display: none;
+}
+
+/* :last-child works, but for some reason .page:last-child will not */
+.WebPage > :last-child,
+.WebPage > .page:target {
+  display: block;
+}
+
+.WebPage {
+  max-width: 80%;
+  margin: 0 auto;
+
+  @media (max-width: 576px) {
+    max-width: 100%;
+  }
+
+  & .controls {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+}
