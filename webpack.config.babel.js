@@ -2,6 +2,7 @@ import path from 'path'
 import webpack from 'webpack'
 import merge from 'webpack-merge'
 import StyleLintPlugin from 'stylelint-webpack-plugin'
+import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import env from './config'
 
 const TARGET = process.env.npm_lifecycle_event
@@ -49,24 +50,42 @@ let Config = {
           path.resolve(__dirname, 'node_modules/normalize.css'),
           path.resolve(__dirname, 'node_modules/font-awesome'),
         ],
-        use: [
-          {
-            loader: 'style-loader'
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              importLoaders: 1,
-              sourceMap: true
-            }
-          },
-          {
-            loader: 'postcss-loader',
-            options: {
-              sourceMap: true
-            }
-          }
-        ]
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                importLoaders: 1,
+                sourceMap: true,
+              },
+            },
+            {
+              loader: 'postcss-loader',
+              options: {
+                sourceMap: true,
+              },
+            },
+          ],
+        }),
+        // use: [
+        //   {
+        //     loader: 'style-loader'
+        //   },
+        //   {
+        //     loader: 'css-loader',
+        //     options: {
+        //       importLoaders: 1,
+        //       sourceMap: true
+        //     }
+        //   },
+        //   {
+        //     loader: 'postcss-loader',
+        //     options: {
+        //       sourceMap: true
+        //     }
+        //   }
+        // ]
       },
 
       {
@@ -105,6 +124,7 @@ if (TARGET === 'server:dev') {
           files: '**/*.pcss',
         },
       ),
+      new ExtractTextPlugin("styles.css"),
     ]
   })
 }
