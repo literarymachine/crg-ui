@@ -22,7 +22,7 @@ const WebPage = ({
   emitter
 }) => (
 
-  <article className="WebPage">
+  <article className="WebPage pages">
 
     <div className="Forms page" id="edit">
       <div className="controls">
@@ -68,7 +68,7 @@ const WebPage = ({
       {about.url &&
         <a target="_blank" className='btn' href={about.url} alt={about.url}><i className="fa fa-external-link" /> {formatURL(about.url)}</a>
       }
-      
+
       <ResourceTable data={about} />
 
     </div>
