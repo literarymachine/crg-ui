@@ -3,7 +3,7 @@
     "totalItems": "%{smart_count} Entry |||| %{smart_count} Entries"
   },
   "Metadata": {
-    "lastEdited": "Last edited by %{contributor} on %{dateModified}",
-    "created": "Created by %{author} on %{dateCreated}"
+    "lastEdited": "Last edited by %{contributor} %{dateModified}",
+    "created": "Created by %{author} %{dateCreated}"
   }
 }
