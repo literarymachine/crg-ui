@@ -25,7 +25,8 @@ class Api {
       method: 'POST',
       mode: 'cors',
       headers: new Headers({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
       }),
       body: JSON.stringify(data)
     }).then(response => {
