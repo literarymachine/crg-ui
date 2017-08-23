@@ -23,7 +23,7 @@ const PagedCollection = ({ translate, member, emitter }) => (
         schema={schema}
         submit={value => emitter.emit('save', value)}
         getOptions={(term, types, callback) => emitter.emit('getOptions', {term, types, callback})}
-        getLabel={value => value && value["name"] ? value["name"] : null}
+        getLabel={value => value && value["name"] ? value["name"] : value["@id"]}
       />
     </div>
     <div className="Forms page" id="addOrganization">
@@ -36,7 +36,7 @@ const PagedCollection = ({ translate, member, emitter }) => (
         schema={schema}
         submit={value => emitter.emit('save', value)}
         getOptions={(term, types, callback) => emitter.emit('getOptions', {term, types, callback})}
-        getLabel={value => value && value["name"] ? value["name"] : null}
+        getLabel={value => value && value["name"] ? value["name"] : value["@id"]}
       />
     </div>
     <div className="Forms page" id="addProduct">
@@ -49,7 +49,7 @@ const PagedCollection = ({ translate, member, emitter }) => (
         schema={schema}
         submit={value => emitter.emit('save', value)}
         getOptions={(term, types, callback) => emitter.emit('getOptions', {term, types, callback})}
-        getLabel={value => value && value["name"] ? value["name"] : null}
+        getLabel={value => value && value["name"] ? value["name"] : value["@id"]}
       />
     </div>
     <div className="Forms page" id="addCustomerRelationship">
@@ -62,7 +62,7 @@ const PagedCollection = ({ translate, member, emitter }) => (
         schema={schema}
         submit={value => emitter.emit('save', value)}
         getOptions={(term, types, callback) => emitter.emit('getOptions', {term, types, callback})}
-        getLabel={value => value && value["name"] ? value["name"] : null}
+        getLabel={value => value && value["name"] ? value["name"] : value["@id"]}
       />
     </div>
     <div className="page" id="list">

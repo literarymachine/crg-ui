@@ -8,16 +8,17 @@ import mitt from 'mitt'
 
 import Init from './components/Init'
 import Api from './api'
+import { getTitle } from './common'
 import './styles/main.pcss'
 
 (function () {
 
-  const renderApp = (data, emitter) => {
-    document.title = data && data.select ? data.select.name[0]['@value'] : '?'
+  const renderApp = (state, emitter) => {
+
+    document.title = getTitle(state.data)
+
     ReactDOM.render(
-      data
-        ? <Init {...window.__APP_INITIAL_STATE__} data={data} emitter={emitter} />
-        : <Init {...window.__APP_INITIAL_STATE__} emitter={emitter} />,
+      <Init {...state} emitter={emitter} />,
       document.getElementById('root')
     )
   }
@@ -30,7 +31,11 @@ import './styles/main.pcss'
     // Log all emissions
     emitter.on('*', (type, e) => console.info(type, e))
     // Save data to the API
-    emitter.on('save', data => api.save(data, response => renderApp(response, emitter)))
+    emitter.on('save', data => api.save(data, response => {
+      const state = window.__APP_INITIAL_STATE__
+      state.data = response
+      renderApp(state, emitter)
+    }))
     // Read data from the API
     emitter.on('load', url => {
       const parser = document.createElement('a')
@@ -49,10 +54,14 @@ import './styles/main.pcss'
       } else {
         currentPathname = url
       }
-      api.load(url, data => renderApp(data, emitter))
+      api.load(url, response => {
+        const state = window.__APP_INITIAL_STATE__
+        state.data = response
+        renderApp(state, emitter)
+      })
     })
 
-    renderApp(null, emitter)
+    renderApp(window.__APP_INITIAL_STATE__, emitter)
 
   })
 

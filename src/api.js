@@ -25,7 +25,8 @@ class Api {
       method: 'POST',
       mode: 'cors',
       headers: new Headers({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
       }),
       body: JSON.stringify(data)
     }).then(response => {
@@ -53,7 +54,7 @@ class Api {
   }
 
   find (term, types, callback) {
-    const url = `/resource/?q=${term}` + (types ? `&filter.about.@type=${types.join(',')}` : '')
+    const url = `/resource/?q=${term}*` + (types ? `&filter.about.@type=${types.join(',')}` : '')
     fetch(this.host + ':' + this.port + url, {
       headers: new Headers({
         'Accept': 'application/json'
