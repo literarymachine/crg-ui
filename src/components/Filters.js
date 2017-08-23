@@ -26,6 +26,12 @@ const onChange = (e, emitter) => {
   submit(e.target.form, emitter)
 }
 
+const triggerClick = (e) => {
+  if (e.keyCode === 32) {
+    e.target.click()
+  }
+}
+
 const Filters = ({filters, emitter, extended}) => (
   <nav className="Filters">
 
@@ -43,16 +49,22 @@ const Filters = ({filters, emitter, extended}) => (
             id="type:ContactPoint"
             onChange={(evt) => onChange(evt, emitter)}
           />
-          <label htmlFor="type:ContactPoint" title="ContactPoint">
+          <label
+            onKeyDown={triggerClick}
+            role="button"
+            tabIndex="0"
+            htmlFor="type:ContactPoint"
+            title="ContactPoint"
+          >
             <Icon type="ContactPoint" />
           </label>
-          {extended &&
+          {/* {extended &&
           <div className="addNew">
             <a title="Add Contact Point" href="/resource/#addContactPoint">
               <i className="fa fa-plus" aria-hidden="true" />
             </a>
           </div>
-          }
+          } */}
         </div>
 
         <div className="filterBox">
@@ -66,16 +78,22 @@ const Filters = ({filters, emitter, extended}) => (
             id="type:Organization"
             onChange={(evt) => onChange(evt, emitter)}
           />
-          <label htmlFor="type:Organization" title="Organization">
+          <label
+            onKeyDown={triggerClick}
+            role="button"
+            tabIndex="0"
+            htmlFor="type:Organization"
+            title="Organization"
+          >
             <Icon type="Organization" />
           </label>
-          {extended &&
+          {/* {extended &&
           <div className="addNew">
             <a title="Add Organization" href="/resource/#addOrganization">
               <i className="fa fa-plus" aria-hidden="true" />
             </a>
           </div>
-          }
+          } */}
         </div>
 
         <div className="filterBox">
@@ -89,16 +107,22 @@ const Filters = ({filters, emitter, extended}) => (
             id="type:Product"
             onChange={(evt) => onChange(evt, emitter)}
           />
-          <label htmlFor="type:Product" title="Product">
+          <label
+            onKeyDown={triggerClick}
+            role="button"
+            tabIndex="0"
+            htmlFor="type:Product"
+            title="Product"
+          >
             <Icon type="Product" />
           </label>
-          {extended &&
+          {/* {extended &&
           <div className="addNew">
             <a title="Add Product" href="/resource/#addProduct">
               <i className="fa fa-plus" aria-hidden="true" />
             </a>
           </div>
-          }
+          } */}
         </div>
 
         <div className="filterBox">
@@ -112,16 +136,22 @@ const Filters = ({filters, emitter, extended}) => (
             id="type:CustomerRelationship"
             onChange={(evt) => onChange(evt, emitter)}
           />
-          <label htmlFor="type:CustomerRelationship" title="CustomerRelationship">
+          <label
+            onKeyDown={triggerClick}
+            role="button"
+            tabIndex="0"
+            htmlFor="type:CustomerRelationship"
+            title="CustomerRelationship"
+          >
             <Icon type="CustomerRelationship" />
           </label>
-          {extended &&
+          {/* {extended &&
           <div className="addNew">
             <a title="Add Customer Relationship" href="/resource/#addCustomerRelationship">
               <i className="fa fa-plus" aria-hidden="true" />
             </a>
           </div>
-          }
+          } */}
         </div>
 
       </div>

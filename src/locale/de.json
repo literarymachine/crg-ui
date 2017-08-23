@@ -2,7 +2,7 @@
   "PagedCollection": {
     "totalItems": "%{smart_count} Eintrag |||| %{smart_count} Einträge"
   },
-  "WebPage": {
+  "Metadata": {
     "lastEdited": "Zuletzt bearbeitet durch %{contributor} %{dateModified}",
     "created": "Erstellt von %{author} %{dateCreated}"
   }

@@ -66,6 +66,40 @@ const PagedCollection = ({ translate, member, emitter }) => (
       />
     </div>
     <div className="page" id="list">
+      <div className="controls">
+        <a
+          title="Add Contact Point"
+          href="/resource/#addContactPoint"
+          className="rectangleBtn primary"
+        >
+          <span>Add</span>
+          <i className="fa fa-address-card" aria-hidden="true" />
+        </a>
+        <a
+          title="Add Organization"
+          href="/resource/#addOrganization"
+          className="rectangleBtn primary"
+        >
+          <span>Add</span>
+          <i className="fa fa-users" aria-hidden="true" />
+        </a>
+        <a
+          title="Add Product"
+          href="/resource/#addProduct"
+          className="rectangleBtn primary"
+        >
+          <span>Add</span>
+          <i className="fa fa-barcode" aria-hidden="true" />
+        </a>
+        <a
+          title="Customer Relationship"
+          href="/resource/#addCustomerRelationship"
+          className="rectangleBtn primary"
+        >
+          <span>Add</span>
+          <i className="fa fa-suitcase" aria-hidden="true" />
+        </a>
+      </div>
       <h1>{translate('PagedCollection.totalItems', { smart_count: member.length })}</h1>
       <ItemList listItems={member} />
     </div>

@@ -20,16 +20,7 @@ const App = ({ data }) => (
       <div className="content">
 
         {data['@type'] === 'PagedCollection' &&
-          <div>
-            <PagedCollection {...data} />
-            {/* {!_.isEmpty(data["filters"]) &&
-              <section className="actions-container">
-                <a href={"#add-" + data["filters"]["about.@type"][0]} className="addButton">
-                  <i className="fa fa-plus" aria-hidden="true" />
-                </a>
-              </section>
-            } */}
-          </div>
+          <PagedCollection {...data} />
         }
         {data['@type'] === 'WebPage' &&
           <WebPage {...data} />

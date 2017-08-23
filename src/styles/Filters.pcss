@@ -10,7 +10,7 @@
     flex-flow: column wrap;
   }
 
-  & .addNew {
+  /* & .addNew {
     text-align: center;
     background-color: color(var(--blue) a(70%));
     transition: 0.3s all;
@@ -27,18 +27,18 @@
     &:hover {
       background-color: var(--orange);
     }
-  }
+  } */
 
   & input[type=radio] {
     display: none;
 
-    &:checked + label + .addNew {
+    /* &:checked + label + .addNew {
       background-color: color(var(--blue) a(80%));
 
       &:hover {
         background-color: var(--orange);
       }
-    }
+    } */
 
     & + label {
       color: var(--white);
@@ -50,6 +50,17 @@
       text-align: center;
       font-size: 3rem;
       cursor: pointer;
+
+      &:focus {
+        background-color: color(var(--blue) a(90%));
+        transition: 0.5s;
+
+        &::after {
+          height: 5px;
+          transition: 0.3s all;
+          background-color: color(var(--orange) a(80%));
+        }
+      }
     }
 
     &:hover + label {
@@ -70,6 +81,10 @@
       position: absolute;
       left: 0;
       top: 0;
+    }
+
+    &:hover + label::after {
+      background-color: color(var(--orange) a(80%));
     }
 
     &:hover + label::after,
