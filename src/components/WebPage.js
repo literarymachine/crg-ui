@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Composer } from 'json-pointer-form'
 import ResourceTable from './ResourceTable'
+import Metadata from './Metadata'
 
 import translate from './translate'
 import withEmitter from './withEmitter'
@@ -13,7 +14,6 @@ import '../styles/form.pcss'
 
 const WebPage = ({
   translate,
-  moment,
   about,
   contributor,
   dateModified,
@@ -29,6 +29,13 @@ const WebPage = ({
         <a href="#view" className="rectangleBtn primary"><span>View</span> <i className="fa fa-eye" aria-hidden="true" /></a>
       </div>
 
+      <Metadata 
+        author={author}
+        contributor={contributor}
+        dateModified={dateModified}
+        dateCreated={dateCreated}
+      />
+
       <Composer
         value={about}
         schema={schema}
@@ -42,6 +49,14 @@ const WebPage = ({
         <a href="#view" className="rectangleBtn primary"><span>View</span> <i className="fa fa-eye" aria-hidden="true" /></a>
         <a href="#edit" className="rectangleBtn warning"><span>Edit</span> <i className="fa fa-edit" aria-hidden="true" /></a>
       </div>
+      
+      <Metadata 
+        author={author}
+        contributor={contributor}
+        dateModified={dateModified}
+        dateCreated={dateCreated}
+      />
+
       <pre>{JSON.stringify(about, null, 2)}</pre>
     </div>
     <div className="page" id="view">
@@ -51,18 +66,12 @@ const WebPage = ({
         <a href="#edit" className="rectangleBtn warning"><span>Edit</span> <i className="fa fa-edit" aria-hidden="true" /></a>
       </div>
 
-      <p title={moment(dateModified).calendar()} className="alignRight">
-        {translate('WebPage.lastEdited', {
-          contributor,
-          dateModified: moment(dateModified).fromNow()
-        })}
-      </p>
-      <p title={moment(dateCreated).calendar()} className="alignRight">
-        {translate('WebPage.created', {
-          author,
-          dateCreated: moment(dateCreated).fromNow()
-        })}
-      </p>
+      <Metadata 
+        author={author}
+        contributor={contributor}
+        dateModified={dateModified}
+        dateCreated={dateCreated}
+      />
 
       <h1>{translate(about.name)}</h1>
       {about.description &&
@@ -87,7 +96,6 @@ const WebPage = ({
 WebPage.propTypes = {
   translate: PropTypes.func.isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
-  moment: PropTypes.func.isRequired,
   about: PropTypes.objectOf(PropTypes.any).isRequired,
   author: PropTypes.string.isRequired,
   contributor: PropTypes.string.isRequired,
