@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Icon from './Icon'
-import formatURL from '../common'
+import { formatURL } from '../common'
 
 import '../styles/ResourceTable.pcss'
 

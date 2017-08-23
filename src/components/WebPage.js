@@ -6,7 +6,7 @@ import Metadata from './Metadata'
 
 import translate from './translate'
 import withEmitter from './withEmitter'
-import formatURL from '../common'
+import { formatURL } from '../common'
 
 import schema from '../json/schema.json'
 
