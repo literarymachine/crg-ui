@@ -54,7 +54,7 @@ class Api {
   }
 
   find (term, types, callback) {
-    const url = `/resource/?q=${term}` + (types ? `&filter.about.@type=${types.join(',')}` : '')
+    const url = `/resource/?q=${term}*` + (types ? `&filter.about.@type=${types.join(',')}` : '')
     fetch(this.host + ':' + this.port + url, {
       headers: new Headers({
         'Accept': 'application/json'
