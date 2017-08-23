@@ -81,8 +81,6 @@ const WebPage = ({
 
     </div>
 
-    {/* <pre>{JSON.stringify(about, null, 2)}</pre> */}
-
   </article>
 )
 
