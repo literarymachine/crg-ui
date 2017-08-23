@@ -9,6 +9,7 @@ import template from './views/index'
 import webpackConfig from '../webpack.config.babel'
 import Api from './api'
 import Init from './components/Init'
+import { getTitle } from './common'
 
 import Config, { apiConfig } from '../config'
 
@@ -58,15 +59,15 @@ server.get(/^(.*)$/, function (req, res) {
   }
   const api = new Api(apiConfig)
   api.load(req.url, function (response) {
-    const data = {
+    const initialState = {
       data: response,
       locales: acceptedLanguages,
       apiConfig
     }
     res.send(template({
-      body: renderToString(<Init {...data} emitter={{}}  />),
-      title: 'Hello from server',
-      initialState: JSON.stringify(data)
+      body: renderToString(<Init {...initialState} emitter={{}}  />),
+      title: getTitle(initialState.data),
+      initialState: JSON.stringify(initialState)
     }))
   })
 })
