@@ -29,7 +29,7 @@ const WebPage = ({
         <a href="#view" className="rectangleBtn primary"><span>View</span> <i className="fa fa-eye" aria-hidden="true" /></a>
       </div>
 
-      <Metadata 
+      <Metadata
         author={author}
         contributor={contributor}
         dateModified={dateModified}
@@ -41,7 +41,7 @@ const WebPage = ({
         schema={schema}
         submit={value => emitter.emit('save', value)}
         getOptions={(term, types, callback) => emitter.emit('getOptions', {term, types, callback})}
-        getLabel={value => value && value["name"] ? value["name"] : null}
+        getLabel={value => value && value["name"] ? value["name"] : value["@id"]}
       />
     </div>
     <div className="page" id="json">
@@ -49,8 +49,8 @@ const WebPage = ({
         <a href="#view" className="rectangleBtn primary"><span>View</span> <i className="fa fa-eye" aria-hidden="true" /></a>
         <a href="#edit" className="rectangleBtn warning"><span>Edit</span> <i className="fa fa-edit" aria-hidden="true" /></a>
       </div>
-      
-      <Metadata 
+
+      <Metadata
         author={author}
         contributor={contributor}
         dateModified={dateModified}
@@ -66,7 +66,7 @@ const WebPage = ({
         <a href="#edit" className="rectangleBtn warning"><span>Edit</span> <i className="fa fa-edit" aria-hidden="true" /></a>
       </div>
 
-      <Metadata 
+      <Metadata
         author={author}
         contributor={contributor}
         dateModified={dateModified}
