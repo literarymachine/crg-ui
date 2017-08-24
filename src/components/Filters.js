@@ -3,10 +3,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Logo from '../assets/logo.svg'
+import Link from './Link'
 import '../styles/Filters.pcss'
 
 import withEmitter from './withEmitter'
-
 import Icon from './Icon'
 
 const submit = (form, emitter) => {
@@ -17,13 +17,8 @@ const submit = (form, emitter) => {
 }
 
 const onSubmit = (e, emitter) => {
-  e.preventDefault()
-  submit(e.target, emitter)
-}
-
-const onChange = (e, emitter) => {
-  e.preventDefault()
-  submit(e.target.form, emitter)
+  const form = e.target.parentElement.form || e.target.form || e.target
+  submit(form, emitter)
 }
 
 const triggerClick = (e) => {
@@ -40,10 +35,10 @@ const Filters = ({filters, emitter, extended}) => (
       <div className="head">
 
         <div className="title">
-          <a href="/" >
+          <Link to={'/'}>
             <img src={Logo} alt="Customer Relation Graph" />
             <h1>Customer Relation Graph</h1>
-          </a>
+          </Link>
         </div>
 
         <div className="types-container">
@@ -56,7 +51,7 @@ const Filters = ({filters, emitter, extended}) => (
               }
               name="filter.about.@type"
               id="type:ContactPoint"
-              onChange={(evt) => onChange(evt, emitter)}
+              onChange={(evt) => onSubmit(evt, emitter)}
             />
             <label
               onKeyDown={triggerClick}
@@ -85,7 +80,7 @@ const Filters = ({filters, emitter, extended}) => (
               }
               name="filter.about.@type"
               id="type:Organization"
-              onChange={(evt) => onChange(evt, emitter)}
+              onChange={(evt) => onSubmit(evt, emitter)}
             />
             <label
               onKeyDown={triggerClick}
@@ -114,7 +109,7 @@ const Filters = ({filters, emitter, extended}) => (
               }
               name="filter.about.@type"
               id="type:Product"
-              onChange={(evt) => onChange(evt, emitter)}
+              onChange={(evt) => onSubmit(evt, emitter)}
             />
             <label
               onKeyDown={triggerClick}
@@ -143,9 +138,10 @@ const Filters = ({filters, emitter, extended}) => (
               }
               name="filter.about.@type"
               id="type:CustomerRelationship"
-              onChange={(evt) => onChange(evt, emitter)}
+              onChange={(evt) => onSubmit(evt, emitter)}
             />
             <label
+              onClick={(evt) => onSubmit(evt, emitter)}
               onKeyDown={triggerClick}
               role="button"
               tabIndex="0"
@@ -174,7 +170,7 @@ const Filters = ({filters, emitter, extended}) => (
           </div>
 
           <div className="sort-container">
-            <select name="sort" className="btn" onChange={(evt) => onChange(evt, emitter)}>
+            <select name="sort" className="btn" onChange={(evt) => onSubmit(evt, emitter)}>
               <option value="">Relevance</option>
               <option value="dateCreated:ASC">Date Created</option>
             </select>
