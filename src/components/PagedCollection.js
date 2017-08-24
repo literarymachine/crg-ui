@@ -69,7 +69,7 @@ const PagedCollection = ({ translate, member, emitter }) => (
       <div className="controls">
         <a
           title="Add Contact Point"
-          href="/resource/#addContactPoint"
+          href="#addContactPoint"
           className="rectangleBtn primary"
         >
           <span>Add</span>
@@ -77,7 +77,7 @@ const PagedCollection = ({ translate, member, emitter }) => (
         </a>
         <a
           title="Add Organization"
-          href="/resource/#addOrganization"
+          href="#addOrganization"
           className="rectangleBtn primary"
         >
           <span>Add</span>
@@ -85,7 +85,7 @@ const PagedCollection = ({ translate, member, emitter }) => (
         </a>
         <a
           title="Add Product"
-          href="/resource/#addProduct"
+          href="#addProduct"
           className="rectangleBtn primary"
         >
           <span>Add</span>
@@ -93,7 +93,7 @@ const PagedCollection = ({ translate, member, emitter }) => (
         </a>
         <a
           title="Customer Relationship"
-          href="/resource/#addCustomerRelationship"
+          href="#addCustomerRelationship"
           className="rectangleBtn primary"
         >
           <span>Add</span>

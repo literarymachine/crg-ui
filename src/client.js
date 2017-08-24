@@ -39,9 +39,6 @@ import './styles/main.pcss'
     // Read data from the API
     emitter.on('load', url => {
       if (window.location.pathname + window.location.search !== url) {
-        const parser = document.createElement('a')
-        parser.href = url
-        window.location.hash = parser.hash
         window.history.pushState(null, null, url)
         window.dispatchEvent(new window.PopStateEvent('popstate'))
       }

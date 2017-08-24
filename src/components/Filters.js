@@ -187,7 +187,7 @@ const Filters = ({query, filters, emitter, extended}) => (
       </div>
 
       {extended ? (
-        <div className="search-bar">  
+        <div className="search-bar">
           <div className="search-container">
             <input type="search" name="q" defaultValue={query} placeholder="Search..." />
             <input type="submit" className="btn" />
