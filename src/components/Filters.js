@@ -24,7 +24,7 @@ const triggerClick = (e) => {
   }
 }
 
-const Filters = ({filters, emitter, extended}) => (
+const Filters = ({query, filters, emitter, extended}) => (
   <nav className="Filters">
 
     <form action="/resource/" onSubmit={(evt) => onSubmit(evt, emitter)}>
@@ -189,7 +189,7 @@ const Filters = ({filters, emitter, extended}) => (
       {extended ? (
         <div className="search-bar">  
           <div className="search-container">
-            <input type="search" name="q" placeholder="Search..." />
+            <input type="search" name="q" defaultValue={query} placeholder="Search..." />
             <input type="submit" className="btn" />
           </div>
 
@@ -215,6 +215,7 @@ const Filters = ({filters, emitter, extended}) => (
 )
 
 Filters.propTypes = {
+  query: PropTypes.string.isRequired,
   filters: PropTypes.objectOf(PropTypes.any).isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   extended: PropTypes.bool.isRequired
