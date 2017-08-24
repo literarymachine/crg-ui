@@ -38,22 +38,18 @@ import './styles/main.pcss'
     }))
     // Read data from the API
     emitter.on('load', url => {
-      const parser = document.createElement('a')
-      parser.href = url
-      window.location.hash = parser.hash
-      window.history.pushState(null, null, url)
-      window.dispatchEvent(new window.PopStateEvent('popstate'))
+      if (window.location.pathname + window.location.search !== url) {
+        const parser = document.createElement('a')
+        parser.href = url
+        window.location.hash = parser.hash
+        window.history.pushState(null, null, url)
+        window.dispatchEvent(new window.PopStateEvent('popstate'))
+      }
     })
     emitter.on('getOptions', ({term, types, callback}) => api.find(term, types, callback))
 
-    let currentPathname = window.location.pathname + window.location.search
     window.addEventListener('popstate', () => {
       const url = window.location.pathname + window.location.search
-      if (currentPathname === url) {
-        return
-      } else {
-        currentPathname = url
-      }
       api.load(url, response => {
         const state = window.__APP_INITIAL_STATE__
         state.data = response
