@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Icon from './Icon'
 import { formatURL } from '../common'
+import Link from './Link'
 
 import '../styles/ResourceTable.pcss'
 
@@ -173,7 +174,10 @@ const ResourceTable = ({ data }) => (
         <tr>
           <td>Parent Organization</td>
           <td>
-            <a href={`/resource/${data.parentOrganization['@id']}`}><Icon type={data.parentOrganization['@type']} /> {data.parentOrganization.name}</a>
+            <Link to={data.parentOrganization['@id']}>
+              <Icon type={data.parentOrganization['@type']} />&nbsp;
+              {data.parentOrganization.name}
+            </Link>
           </td>
         </tr>
       }
@@ -192,7 +196,12 @@ const ResourceTable = ({ data }) => (
           <td>Contact Point</td>
           <td>
             {data.contactPoint.map(contactPoint => (
-              <div key={contactPoint['@id']} ><a href={`/resource/${contactPoint['@id']}`}><Icon type={contactPoint['@type']} /> {contactPoint.name}</a></div>
+              <div key={contactPoint['@id']} >
+                <Link to={contactPoint['@id']}>
+                  <Icon type={contactPoint['@type']} />&nbsp;
+                  {contactPoint.name}
+                </Link>
+              </div>
             ))
             }
           </td>
@@ -204,7 +213,12 @@ const ResourceTable = ({ data }) => (
           <td>Works for</td>
           <td>
             {data.worksFor.map(work => (
-              <div key={work['@id']} ><a href={`/resource/${work['@id']}`}><Icon type={work['@type']} /> {work.name}</a></div>
+              <div key={work['@id']} >
+                <Link to={work['@id']}>
+                  <Icon type={work['@type']} />&nbsp;
+                  {work.name}
+                </Link>
+              </div>
             ))
             }
           </td>
@@ -216,7 +230,12 @@ const ResourceTable = ({ data }) => (
           <td>Product</td>
           <td>
             {data.product.map(product => (
-              <div key={product['@id']} ><a href={`/resource/${product['@id']}`}><Icon type={product['@type']} /> {product.name}</a></div>
+              <div key={product['@id']} >
+                <Link to={product['@id']}>
+                  <Icon type={product['@type']} />&nbsp;
+                  {product.name}
+                </Link>
+              </div>
             ))
             }
           </td>
@@ -228,7 +247,12 @@ const ResourceTable = ({ data }) => (
           <td>Business Partner</td>
           <td>
             {data.businessPartner.map(partner => (
-              <div key={partner['@id']} ><a href={`/resource/${partner['@id']}`}><Icon type={partner['@type']} /> {partner.name}</a></div>
+              <div key={partner['@id']} >
+                <Link to={partner['@id']}>
+                  <Icon type={partner['@type']} />&nbsp;
+                  {partner.name}
+                </Link>
+              </div>
             ))
             }
           </td>
@@ -240,7 +264,12 @@ const ResourceTable = ({ data }) => (
           <td>Contact Point</td>
           <td>
             {data.contactPoint.map(contact => (
-              <div key={contact['@id']} ><a href={`/resource/${contact['@id']}`}><Icon type={contact['@type']} /> {contact.name}</a></div>
+              <div key={contact['@id']} >
+                <Link to={contact['@id']}>
+                  <Icon type={contact['@type']} />&nbsp;
+                  {contact.name}
+                </Link>
+              </div>
             ))
             }
           </td>
@@ -252,7 +281,12 @@ const ResourceTable = ({ data }) => (
           <td>Customer</td>
           <td>
             {data.customer.map(customer => (
-              <div key={customer['@id']} ><a href={`/resource/${customer['@id']}`}><Icon type={customer['@type']} /> {customer.name}</a></div>
+              <div key={customer['@id']} >
+                <Link to={customer['@id']}>
+                  <Icon type={customer['@type']} />&nbsp;
+                  {customer.name}
+                </Link>
+              </div>
             ))
             }
           </td>
