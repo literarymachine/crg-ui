@@ -9,16 +9,13 @@ import '../styles/Filters.pcss'
 import withEmitter from './withEmitter'
 import Icon from './Icon'
 
-const submit = (form, emitter) => {
+const onSubmit = (e, emitter) => {
+  e.preventDefault()
+  const form = e.target.parentElement.form || e.target.form || e.target
   const formData = new FormData(form)
   const parameters = [...formData.entries()]
     .map(p => encodeURIComponent(p[0]) + "=" + encodeURIComponent(p[1])).join("&")
   emitter.emit('load', '/resource/?' + parameters)
-}
-
-const onSubmit = (e, emitter) => {
-  const form = e.target.parentElement.form || e.target.form || e.target
-  submit(form, emitter)
 }
 
 const triggerClick = (e) => {
@@ -27,7 +24,7 @@ const triggerClick = (e) => {
   }
 }
 
-const Filters = ({filters, emitter, extended}) => (
+const Filters = ({query, filters, emitter, extended}) => (
   <nav className="Filters">
 
     <form action="/resource/" onSubmit={(evt) => onSubmit(evt, emitter)}>
@@ -54,6 +51,13 @@ const Filters = ({filters, emitter, extended}) => (
               onChange={(evt) => onSubmit(evt, emitter)}
             />
             <label
+              onClick={(evt) => {
+                // Trigger submit only if onChange is not triggered
+                if (filters.hasOwnProperty("about.@type")
+                  && filters["about.@type"].includes("ContactPoint")) {
+                  onSubmit(evt, emitter)
+                }
+              }}
               onKeyDown={triggerClick}
               role="button"
               tabIndex="0"
@@ -83,6 +87,13 @@ const Filters = ({filters, emitter, extended}) => (
               onChange={(evt) => onSubmit(evt, emitter)}
             />
             <label
+              onClick={(evt) => {
+                // Trigger submit only if onChange is not triggered
+                if (filters.hasOwnProperty("about.@type")
+                  && filters["about.@type"].includes("Organization")) {
+                  onSubmit(evt, emitter)
+                }
+              }}
               onKeyDown={triggerClick}
               role="button"
               tabIndex="0"
@@ -112,6 +123,13 @@ const Filters = ({filters, emitter, extended}) => (
               onChange={(evt) => onSubmit(evt, emitter)}
             />
             <label
+              onClick={(evt) => {
+                // Trigger submit only if onChange is not triggered
+                if (filters.hasOwnProperty("about.@type")
+                  && filters["about.@type"].includes("Product")) {
+                  onSubmit(evt, emitter)
+                }
+              }}
               onKeyDown={triggerClick}
               role="button"
               tabIndex="0"
@@ -141,7 +159,13 @@ const Filters = ({filters, emitter, extended}) => (
               onChange={(evt) => onSubmit(evt, emitter)}
             />
             <label
-              onClick={(evt) => onSubmit(evt, emitter)}
+              onClick={(evt) => {
+                // Trigger submit only if onChange is not triggered
+                if (filters.hasOwnProperty("about.@type")
+                  && filters["about.@type"].includes("CustomerRelationship")) {
+                  onSubmit(evt, emitter)
+                }
+              }}
               onKeyDown={triggerClick}
               role="button"
               tabIndex="0"
@@ -163,9 +187,9 @@ const Filters = ({filters, emitter, extended}) => (
       </div>
 
       {extended ? (
-        <div className="search-bar">  
+        <div className="search-bar">
           <div className="search-container">
-            <input type="search" name="q" placeholder="Search..." />
+            <input type="search" name="q" defaultValue={query} placeholder="Search..." />
             <input type="submit" className="btn" />
           </div>
 
@@ -191,6 +215,7 @@ const Filters = ({filters, emitter, extended}) => (
 )
 
 Filters.propTypes = {
+  query: PropTypes.string.isRequired,
   filters: PropTypes.objectOf(PropTypes.any).isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   extended: PropTypes.bool.isRequired
