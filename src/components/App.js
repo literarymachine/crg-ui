@@ -18,6 +18,7 @@ const App = ({ data }) => (
       <Filters
         query={data['query']}
         filters={data['filters'] || {'about.@type': [data.about['@type']]}}
+        aggregations={data['aggregations']}
         extended={data['@type'] === 'PagedCollection'}
       />
 
