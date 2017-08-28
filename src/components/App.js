@@ -8,7 +8,7 @@ import Header from './Header'
 import Filters from './Filters'
 // import Footer from './Footer'
 
-const App = ({ data }) => (
+const App = ({ data, user }) => (
   <div id="wrapper">
 
     <main className="container">
@@ -16,12 +16,14 @@ const App = ({ data }) => (
       <Header />
 
       <Filters
-        query={data['query']}
+        query={data['query'] || ''}
         filters={data['filters'] || {'about.@type': [data.about['@type']]}}
         extended={data['@type'] === 'PagedCollection'}
       />
 
       <div className="content">
+
+        {user && <p>User: {user}</p>}
 
         {data['@type'] === 'PagedCollection' &&
           <PagedCollection {...data} />
@@ -39,7 +41,12 @@ const App = ({ data }) => (
 )
 
 App.propTypes = {
-  data: PropTypes.objectOf(PropTypes.any).isRequired
+  data: PropTypes.objectOf(PropTypes.any).isRequired,
+  user: PropTypes.string
+}
+
+App.defaultProps = {
+  user: null
 }
 
 export default App

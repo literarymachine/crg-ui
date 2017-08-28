@@ -5,12 +5,19 @@ import promise from 'es6-promise'
 
 promise.polyfill()
 
-const toJson = response => {
-  if (response.status >= 400) {
-    console.error(response)
-    throw new Error("Bad response from server")
+const checkStatus = response => {
+  if (response.status >= 200 && response.status < 300) {
+    return Promise.resolve(response)
+  } else {
+    return Promise.reject(new Error(response.statusText))
   }
-  return response.json()
+}
+
+const toJson = response => {
+  return response.json().then(json => ({
+    user: response.headers.get('X-Request-User'),
+    data: json
+  }))
 }
 
 class Api {
@@ -28,14 +35,15 @@ class Api {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       }),
+      credentials: 'include',
       body: JSON.stringify(data)
-    }).then(response => {
-      return(toJson(response))
-    }).then(data => {
-      callback(data)
-    }).catch(err => {
-      console.error(err)
-    })
+    }).then(checkStatus)
+      .then(toJson)
+      .then(data => {
+        callback(data)
+      }).catch(err => {
+        console.error(err)
+      })
   }
 
   load (url, callback, authorization) {
@@ -47,16 +55,15 @@ class Api {
       headers.append('Authorization', authorization)
     }
     fetch(this.host + ':' + this.port + url, {
-      headers: headers,
+      headers,
       credentials: 'include'
-    }).then(response => {
-      console.log(response.headers.get('X-Request-User'))
-      return(toJson(response))
-    }).then(data => {
-      callback(data)
-    }).catch(err => {
-      console.error(err)
-    })
+    }).then(checkStatus)
+      .then(toJson)
+      .then(data => {
+        callback(data)
+      }).catch(err => {
+        console.error(err)
+      })
   }
 
   find (term, types, callback) {
@@ -64,14 +71,15 @@ class Api {
     fetch(this.host + ':' + this.port + url, {
       headers: new Headers({
         'Accept': 'application/json'
+      }),
+      credentials: 'include'
+    }).then(checkStatus)
+      .then(toJson)
+      .then(data => {
+        callback(data.data)
+      }).catch(err => {
+        console.error(err)
       })
-    }).then(response => {
-      return(toJson(response))
-    }).then(data => {
-      callback(data)
-    }).catch(err => {
-      console.error(err)
-    })
   }
 
 }
