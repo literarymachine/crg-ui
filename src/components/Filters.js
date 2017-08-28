@@ -41,7 +41,7 @@ const Filters = ({query, filters, aggregations, emitter, extended}) => (
         <div className="types-container">
           {aggregations['about.@type']['buckets'].map(function (bucket) {
             return (
-              <div className="filterBox">
+              <div className="filterBox" key={bucket.key}>
                 <input
                   type="radio"
                   value={bucket.key}
