@@ -178,6 +178,13 @@ body {
   display: block;
 }
 
+:target::before {
+  content: "";
+  display: block;
+  height: 140px;
+  margin: -140px 0 0;
+}
+
 .pages {
   padding: 20px;
   overflow: auto;
