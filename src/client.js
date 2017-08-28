@@ -44,7 +44,12 @@ import './styles/main.pcss'
         window.dispatchEvent(new window.PopStateEvent('popstate'))
       }
     })
+    // Find data from the API
     emitter.on('getOptions', ({term, types, callback}) => api.find(term, types, callback))
+    // Log in to the API
+    emitter.on('login', () => api.login())
+    // Log out of the API
+    emitter.on('logout', () => api.logout())
 
     window.addEventListener('popstate', () => {
       const url = window.location.pathname + window.location.search
