@@ -38,13 +38,19 @@ class Api {
     })
   }
 
-  load (url, callback) {
+  load (url, callback, authorization) {
     url = url === '/' ? '/resource/' : url
+    const headers = new Headers({
+      'Accept': 'application/json'
+    })
+    if (authorization) {
+      headers.append('Authorization', authorization)
+    }
     fetch(this.host + ':' + this.port + url, {
-      headers: new Headers({
-        'Accept': 'application/json'
-      })
+      headers: headers,
+      credentials: 'include'
     }).then(response => {
+      console.log(response.headers.get('X-Request-User'))
       return(toJson(response))
     }).then(data => {
       callback(data)

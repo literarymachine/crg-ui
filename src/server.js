@@ -69,7 +69,7 @@ server.get(/^(.*)$/, function (req, res) {
       title: getTitle(initialState.data),
       initialState: JSON.stringify(initialState)
     }))
-  })
+  }, req.get("authorization"))
 })
 
 server.listen(Config.port, Config.host, function () {
