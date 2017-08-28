@@ -190,7 +190,7 @@ const Filters = ({query, filters, emitter, extended}) => (
         <div className="search-bar">
           <div className="search-container">
             <input type="search" name="q" defaultValue={query} placeholder="Search..." />
-            <input type="submit" className="btn" />
+            <input type="submit" className="btn" value="Search" />
           </div>
 
           <div className="sort-container">
