@@ -33,7 +33,8 @@ import './styles/main.pcss'
     // Save data to the API
     emitter.on('save', data => api.save(data, response => {
       const state = window.__APP_INITIAL_STATE__
-      state.data = response
+      state.data = response.data
+      state.user = response.user
       renderApp(state, emitter)
     }))
     // Read data from the API
@@ -43,13 +44,19 @@ import './styles/main.pcss'
         window.dispatchEvent(new window.PopStateEvent('popstate'))
       }
     })
+    // Find data from the API
     emitter.on('getOptions', ({term, types, callback}) => api.find(term, types, callback))
+    // Log in to the API
+    emitter.on('login', () => api.login())
+    // Log out of the API
+    emitter.on('logout', () => api.logout())
 
     window.addEventListener('popstate', () => {
       const url = window.location.pathname + window.location.search
       api.load(url, response => {
         const state = window.__APP_INITIAL_STATE__
-        state.data = response
+        state.data = response.data
+        state.user = response.user
         renderApp(state, emitter)
       })
     })

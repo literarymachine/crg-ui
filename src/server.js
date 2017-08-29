@@ -44,7 +44,7 @@ if (process.env.NODE_ENV === 'development') {
 
 server.use(express.static(path.join(__dirname, '/../dist')))
 
-server.get(/^(.*)$/, function (req, res) {
+server.get(/^(.*)$/, (req, res) => {
   const defaultLanguage = 'en'
   const supportedLanguages = [ 'en', 'de', 'es' ]
   const requestedLanguages = req.headers['accept-language']
@@ -58,9 +58,10 @@ server.get(/^(.*)$/, function (req, res) {
     acceptedLanguages.push(defaultLanguage)
   }
   const api = new Api(apiConfig)
-  api.load(req.url, function (response) {
+  api.load(req.url, response => {
     const initialState = {
-      data: response,
+      data: response.data,
+      user: response.user,
       locales: acceptedLanguages,
       apiConfig
     }
@@ -69,7 +70,7 @@ server.get(/^(.*)$/, function (req, res) {
       title: getTitle(initialState.data),
       initialState: JSON.stringify(initialState)
     }))
-  })
+  }, req.get("authorization"))
 })
 
 server.listen(Config.port, Config.host, function () {
