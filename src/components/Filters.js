@@ -2,7 +2,7 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import Logo from '../assets/logo.svg'
+// import Logo from '../assets/logo.svg'
 import Link from './Link'
 import '../styles/Filters.pcss'
 
@@ -33,7 +33,7 @@ const Filters = ({query, filters, emitter, extended}) => (
 
         <div className="title">
           <Link to={'/'}>
-            <img src={Logo} alt="Customer Relation Graph" />
+            <img src={'/assets/logo.svg'} alt="Customer Relation Graph" />
             <h1>Customer Relation Graph</h1>
           </Link>
         </div>
