@@ -9,6 +9,17 @@ import Filters from './Filters'
 import withEmitter from './withEmitter'
 // import Footer from './Footer'
 
+const defaultAggregations = {
+  'about.@type': {
+    'buckets': [
+      {key: 'Product'},
+      {key: 'Organization'},
+      {key: 'CustomerRelationship'},
+      {key: 'ContactPoint'}
+    ]
+  }
+}
+
 const App = ({ data, user, emitter }) => (
   <div id="wrapper">
 
@@ -19,7 +30,7 @@ const App = ({ data, user, emitter }) => (
       <Filters
         query={data['query'] || ''}
         filters={data['filters'] || {'about.@type': [data.about['@type']]}}
-        aggregations={data['aggregations']}
+        aggregations={data['aggregations'] || defaultAggregations}
         extended={data['@type'] === 'PagedCollection'}
       />
 
