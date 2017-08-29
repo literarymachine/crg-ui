@@ -24,7 +24,7 @@ const triggerClick = (e) => {
   }
 }
 
-const Filters = ({query, filters, emitter, extended}) => (
+const Filters = ({query, filters, aggregations, emitter, extended}) => (
   <nav className="Filters">
 
     <form action="/resource/" onSubmit={(evt) => onSubmit(evt, emitter)}>
@@ -39,151 +39,39 @@ const Filters = ({query, filters, emitter, extended}) => (
         </div>
 
         <div className="types-container">
-          <div className="filterBox">
-            <input
-              type="radio"
-              value="ContactPoint"
-              checked={filters.hasOwnProperty("about.@type")
-                && filters["about.@type"].includes("ContactPoint")
-              }
-              name="filter.about.@type"
-              id="type:ContactPoint"
-              onChange={(evt) => onSubmit(evt, emitter)}
-            />
-            <label
-              onClick={(evt) => {
-                // Trigger submit only if onChange is not triggered
-                if (filters.hasOwnProperty("about.@type")
-                  && filters["about.@type"].includes("ContactPoint")) {
-                  onSubmit(evt, emitter)
-                }
-              }}
-              onKeyDown={triggerClick}
-              role="button"
-              tabIndex="0"
-              htmlFor="type:ContactPoint"
-              title="ContactPoint"
-            >
-              <Icon type="ContactPoint" />
-            </label>
-            {/* {extended &&
-            <div className="addNew">
-              <a title="Add Contact Point" href="/resource/#addContactPoint">
-                <i className="fa fa-plus" aria-hidden="true" />
-              </a>
-            </div>
-            } */}
-          </div>
-
-          <div className="filterBox">
-            <input
-              type="radio"
-              value="Organization"
-              checked={filters.hasOwnProperty("about.@type")
-                && filters["about.@type"].includes("Organization")
-              }
-              name="filter.about.@type"
-              id="type:Organization"
-              onChange={(evt) => onSubmit(evt, emitter)}
-            />
-            <label
-              onClick={(evt) => {
-                // Trigger submit only if onChange is not triggered
-                if (filters.hasOwnProperty("about.@type")
-                  && filters["about.@type"].includes("Organization")) {
-                  onSubmit(evt, emitter)
-                }
-              }}
-              onKeyDown={triggerClick}
-              role="button"
-              tabIndex="0"
-              htmlFor="type:Organization"
-              title="Organization"
-            >
-              <Icon type="Organization" />
-            </label>
-            {/* {extended &&
-            <div className="addNew">
-              <a title="Add Organization" href="/resource/#addOrganization">
-                <i className="fa fa-plus" aria-hidden="true" />
-              </a>
-            </div>
-            } */}
-          </div>
-
-          <div className="filterBox">
-            <input
-              type="radio"
-              value="Product"
-              checked={filters.hasOwnProperty("about.@type")
-                && filters["about.@type"].includes("Product")
-              }
-              name="filter.about.@type"
-              id="type:Product"
-              onChange={(evt) => onSubmit(evt, emitter)}
-            />
-            <label
-              onClick={(evt) => {
-                // Trigger submit only if onChange is not triggered
-                if (filters.hasOwnProperty("about.@type")
-                  && filters["about.@type"].includes("Product")) {
-                  onSubmit(evt, emitter)
-                }
-              }}
-              onKeyDown={triggerClick}
-              role="button"
-              tabIndex="0"
-              htmlFor="type:Product"
-              title="Product"
-            >
-              <Icon type="Product" />
-            </label>
-            {/* {extended &&
-            <div className="addNew">
-              <a title="Add Product" href="/resource/#addProduct">
-                <i className="fa fa-plus" aria-hidden="true" />
-              </a>
-            </div>
-            } */}
-          </div>
-
-          <div className="filterBox">
-            <input
-              type="radio"
-              value="CustomerRelationship"
-              checked={filters.hasOwnProperty("about.@type")
-                && filters["about.@type"].includes("CustomerRelationship")
-              }
-              name="filter.about.@type"
-              id="type:CustomerRelationship"
-              onChange={(evt) => onSubmit(evt, emitter)}
-            />
-            <label
-              onClick={(evt) => {
-                // Trigger submit only if onChange is not triggered
-                if (filters.hasOwnProperty("about.@type")
-                  && filters["about.@type"].includes("CustomerRelationship")) {
-                  onSubmit(evt, emitter)
-                }
-              }}
-              onKeyDown={triggerClick}
-              role="button"
-              tabIndex="0"
-              htmlFor="type:CustomerRelationship"
-              title="CustomerRelationship"
-            >
-              <Icon type="CustomerRelationship" />
-            </label>
-            {/* {extended &&
-            <div className="addNew">
-              <a title="Add Customer Relationship" href="/resource/#addCustomerRelationship">
-                <i className="fa fa-plus" aria-hidden="true" />
-              </a>
-            </div>
-            } */}
-          </div>
+          {aggregations['about.@type']['buckets'].map(function (bucket) {
+            return (
+              <div className="filterBox" key={bucket.key}>
+                <input
+                  type="radio"
+                  value={bucket.key}
+                  checked={filters.hasOwnProperty("about.@type")
+                    && filters["about.@type"].includes(bucket.key)
+                  }
+                  name="filter.about.@type"
+                  id={"type:" + bucket.key}
+                  onChange={(evt) => onSubmit(evt, emitter)}
+                />
+                <label
+                  onClick={(evt) => {
+                    // Trigger submit only if onChange is not triggered
+                    if (filters.hasOwnProperty("about.@type")
+                      && filters["about.@type"].includes(bucket.key)) {
+                      onSubmit(evt, emitter)
+                    }
+                  }}
+                  onKeyDown={triggerClick}
+                  role="button"
+                  tabIndex="0"
+                  htmlFor={"type:" + bucket.key}
+                  title={bucket.key}
+                >
+                  <Icon type={bucket.key} />
+                </label>
+              </div>
+            )
+          }, this)}
         </div>
-
       </div>
 
       {extended ? (
@@ -200,14 +88,13 @@ const Filters = ({query, filters, emitter, extended}) => (
             </select>
           </div>
         </div>
-      ): (
+      ) : (
         <noscript>
           <div className="search-bar">
             <input type="submit" className="btn" />
           </div>
         </noscript>
-      )
-      }
+      )}
 
     </form>
 
@@ -217,6 +104,7 @@ const Filters = ({query, filters, emitter, extended}) => (
 Filters.propTypes = {
   query: PropTypes.string.isRequired,
   filters: PropTypes.objectOf(PropTypes.any).isRequired,
+  aggregations: PropTypes.objectOf(PropTypes.any).isRequired,
   emitter: PropTypes.objectOf(PropTypes.any).isRequired,
   extended: PropTypes.bool.isRequired
 }
