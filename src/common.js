@@ -3,8 +3,8 @@ export const formatURL = (url) =>  (
 )
 
 export const getTitle = (data) => (
-  data.about && data.about.name
-    ? data.about.name
+  data.about && (data.about.name || data.about['@id'])
+    ? data.about.name || data.about['@id']
     : data.totalItems + " Entries"
 )
 
