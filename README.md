@@ -28,7 +28,7 @@ Open .env in the editor of your choice and configure as follows:
 
 SERVER_HOST=localhost
 SERVER_PORT=3000
-API_HOST=http://localhost
+API_HOST=localhost
 API_PORT=9000
 ```
 
