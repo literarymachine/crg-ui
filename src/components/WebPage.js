@@ -10,7 +10,7 @@ import { formatURL } from '../common'
 
 import schema from '../json/schema.json'
 
-import '../styles/form.pcss'
+import '../styles/FormStyle.pcss'
 
 const WebPage = ({
   translate,
@@ -24,7 +24,7 @@ const WebPage = ({
 
   <article className="WebPage pages">
 
-    <div className="Forms page" id="edit">
+    <div className="page" id="edit">
       <div className="controls">
         <a href="#view" className="rectangleBtn primary"><span>View</span> <i className="fa fa-eye" aria-hidden="true" /></a>
       </div>
