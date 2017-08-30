@@ -9,11 +9,11 @@ import withEmitter from './withEmitter'
 import schema from '../json/schema.json'
 
 import '../styles/PagedCollection.pcss'
-import '../styles/form.pcss'
+import '../styles/FormStyle.pcss'
 
 const PagedCollection = ({ translate, member, emitter }) => (
   <section className="PagedCollection pages">
-    <div className="Forms page" id="addContactPoint">
+    <div className="page" id="addContactPoint">
       <div className="controls">
         <a href="#list" className="rectangleBtn primary"><span>List</span> <i className="fa fa-list" aria-hidden="true" /></a>
       </div>
@@ -26,7 +26,7 @@ const PagedCollection = ({ translate, member, emitter }) => (
         getLabel={value => value && value["name"] ? value["name"] : value["@id"]}
       />
     </div>
-    <div className="Forms page" id="addOrganization">
+    <div className="page" id="addOrganization">
       <div className="controls">
         <a href="#list" className="rectangleBtn primary"><span>List</span> <i className="fa fa-list" aria-hidden="true" /></a>
       </div>
@@ -39,7 +39,7 @@ const PagedCollection = ({ translate, member, emitter }) => (
         getLabel={value => value && value["name"] ? value["name"] : value["@id"]}
       />
     </div>
-    <div className="Forms page" id="addProduct">
+    <div className="page" id="addProduct">
       <div className="controls">
         <a href="#list" className="rectangleBtn primary"><span>List</span> <i className="fa fa-list" aria-hidden="true" /></a>
       </div>
@@ -52,7 +52,7 @@ const PagedCollection = ({ translate, member, emitter }) => (
         getLabel={value => value && value["name"] ? value["name"] : value["@id"]}
       />
     </div>
-    <div className="Forms page" id="addCustomerRelationship">
+    <div className="page" id="addCustomerRelationship">
       <div className="controls">
         <a href="#list" className="rectangleBtn primary"><span>List</span> <i className="fa fa-list" aria-hidden="true" /></a>
       </div>
