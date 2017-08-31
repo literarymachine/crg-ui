@@ -58,7 +58,12 @@ import './styles/main.pcss'
       document.querySelectorAll('.target').forEach(e => {
         e.classList.remove('target')
       })
-      document.getElementById(hash).classList.add('target')
+
+      const target = document.getElementById(hash)
+      if (target) {
+        target.classList.add('target')
+      }
+      
     })
     
     window.addEventListener('popstate', () => {
@@ -77,7 +82,12 @@ import './styles/main.pcss'
     document.querySelectorAll('.target').forEach(e => {
       e.classList.remove('target')
     })
-    document.getElementById(hash).classList.add('target')
+
+    const target = document.getElementById(hash)
+    if (target) {
+      target.classList.add('target')
+    }
+
   })
 
 
