@@ -39,11 +39,13 @@ import './styles/main.pcss'
     }))
     // Read data from the API
     emitter.on('load', url => {
-      if (window.location.pathname + window.location.search !== url) {
+      if (window.location.pathname + window.location.search + window.location.hash !== url) {
         window.history.pushState(null, null, url)
+        window.dispatchEvent(new window.HashChangeEvent("hashchange"))        
         window.dispatchEvent(new window.PopStateEvent('popstate'))
       }
     })
+
     // Find data from the API
     emitter.on('getOptions', ({term, types, callback}) => api.find(term, types, callback))
     // Log in to the API
@@ -51,6 +53,14 @@ import './styles/main.pcss'
     // Log out of the API
     emitter.on('logout', () => api.logout())
 
+    window.addEventListener("hashchange", () => {
+      const hash = window.location.hash.substr(1)
+      document.querySelectorAll('.target').forEach(e => {
+        e.classList.remove('target')
+      })
+      document.getElementById(hash).classList.add('target')
+    })
+    
     window.addEventListener('popstate', () => {
       const url = window.location.pathname + window.location.search
       api.load(url, response => {
@@ -60,9 +70,14 @@ import './styles/main.pcss'
         renderApp(state, emitter)
       })
     })
-
+    
     renderApp(window.__APP_INITIAL_STATE__, emitter)
-
+    
+    const hash = window.location.hash.substr(1)
+    document.querySelectorAll('.target').forEach(e => {
+      e.classList.remove('target')
+    })
+    document.getElementById(hash).classList.add('target')
   })
 
 
