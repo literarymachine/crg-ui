@@ -229,15 +229,12 @@ const ResourceTable = ({ data }) => (
         <tr>
           <td>Product</td>
           <td>
-            {data.product.map(product => (
-              <div key={product['@id']} >
-                <Link to={product['@id']}>
-                  <Icon type={product['@type']} />&nbsp;
-                  {product.name}
-                </Link>
-              </div>
-            ))
-            }
+            <div key={data.product['@id']} >
+              <Link to={data.product['@id']}>
+                <Icon type={data.product['@type']} />&nbsp;
+                {data.product.name}
+              </Link>
+            </div>
           </td>
         </tr>
       }
