@@ -12,8 +12,10 @@ import withEmitter from './withEmitter'
 const defaultAggregations = {
   'about.@type': {
     'buckets': [
+      {key: 'Service'},
       {key: 'Product'},
       {key: 'Organization'},
+      {key: 'Offer'},
       {key: 'CustomerRelationship'},
       {key: 'ContactPoint'}
     ]
