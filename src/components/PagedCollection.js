@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Composer } from 'json-pointer-form'
 
 import ItemList from './ItemList'
+import Icon from './Icon'
 import translate from './translate'
 import withEmitter from './withEmitter'
 
@@ -65,6 +66,32 @@ const PagedCollection = ({ translate, member, emitter }) => (
         getLabel={value => value && value["name"] ? value["name"] : value["@id"]}
       />
     </div>
+    <div className="page" id="addOffer">
+      <div className="controls">
+        <a href="#list" className="rectangleBtn primary"><span>List</span> <i className="fa fa-list" aria-hidden="true" /></a>
+      </div>
+      <h1>Add Offer</h1>
+      <Composer
+        value={{"@type": "Offer"}}
+        schema={schema}
+        submit={value => emitter.emit('save', value)}
+        getOptions={(term, types, callback) => emitter.emit('getOptions', {term, types, callback})}
+        getLabel={value => value && value["name"] ? value["name"] : value["@id"]}
+      />
+    </div>
+    <div className="page" id="addService">
+      <div className="controls">
+        <a href="#list" className="rectangleBtn primary"><span>List</span> <i className="fa fa-list" aria-hidden="true" /></a>
+      </div>
+      <h1>Add Service</h1>
+      <Composer
+        value={{"@type": "Service"}}
+        schema={schema}
+        submit={value => emitter.emit('save', value)}
+        getOptions={(term, types, callback) => emitter.emit('getOptions', {term, types, callback})}
+        getLabel={value => value && value["name"] ? value["name"] : value["@id"]}
+      />
+    </div>
     <div className="page" id="list">
       <div className="controls">
         <a
@@ -73,7 +100,7 @@ const PagedCollection = ({ translate, member, emitter }) => (
           className="rectangleBtn primary"
         >
           <span>Add</span>
-          <i className="fa fa-address-card" aria-hidden="true" />
+          <Icon type="ContactPoint" />
         </a>
         <a
           title="Add Organization"
@@ -81,7 +108,7 @@ const PagedCollection = ({ translate, member, emitter }) => (
           className="rectangleBtn primary"
         >
           <span>Add</span>
-          <i className="fa fa-users" aria-hidden="true" />
+          <Icon type="Organization" />
         </a>
         <a
           title="Add Product"
@@ -89,7 +116,7 @@ const PagedCollection = ({ translate, member, emitter }) => (
           className="rectangleBtn primary"
         >
           <span>Add</span>
-          <i className="fa fa-barcode" aria-hidden="true" />
+          <Icon type="Product" />
         </a>
         <a
           title="Customer Relationship"
@@ -97,7 +124,23 @@ const PagedCollection = ({ translate, member, emitter }) => (
           className="rectangleBtn primary"
         >
           <span>Add</span>
-          <i className="fa fa-suitcase" aria-hidden="true" />
+          <Icon type="CustomerRelationship" />
+        </a>
+        <a
+          title="Offer"
+          href="#addOffer"
+          className="rectangleBtn primary"
+        >
+          <span>Add</span>
+          <Icon type="Offer" />
+        </a>
+        <a
+          title="Service"
+          href="#addService"
+          className="rectangleBtn primary"
+        >
+          <span>Add</span>
+          <Icon type="Service" />
         </a>
       </div>
       <h1>{translate('PagedCollection.totalItems', { smart_count: member.length })}</h1>
