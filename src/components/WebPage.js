@@ -73,7 +73,12 @@ const WebPage = ({
         dateCreated={dateCreated}
       />
 
-      <h1>{translate(about.name)}</h1>
+      <h1 dangerouslySetInnerHTML={{__html:
+        about.customer
+          ? translate(about.customer[0].name) || about['@id']
+          : translate(about.name) || about['@id']
+      }} />
+
       {about.description &&
         <p>{about.description}</p>
       }

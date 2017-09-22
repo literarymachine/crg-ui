@@ -13,7 +13,11 @@ const ItemList = ({ translate, listItems }) => (
       <li key={listItem.about['@id']}>
         <Link to={listItem.about['@id']}>
           <Icon type={listItem.about['@type']} />&nbsp;
-          {translate(listItem.about.name) || listItem.about['@id']}
+          <span dangerouslySetInnerHTML={{__html:
+            listItem.about.customer
+              ? translate(listItem.about.customer[0].name) || listItem.about['@id']
+              : translate(listItem.about.name) || listItem.about['@id']
+          }} />
         </Link>
       </li>
     )
