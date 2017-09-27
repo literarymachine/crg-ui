@@ -27,30 +27,29 @@ const App = ({ data, user, emitter }) => (
 
     <main className="container">
 
-      <Header />
+      <Header>
+        <Filters
+          query={data['query'] || ''}
+          filters={data['filters'] || {'about.@type': [data.about['@type']]}}
+          aggregations={data['aggregations'] || defaultAggregations}
+          extended={data['@type'] === 'PagedCollection'}
+        />
 
-      <Filters
-        query={data['query'] || ''}
-        filters={data['filters'] || {'about.@type': [data.about['@type']]}}
-        aggregations={data['aggregations'] || defaultAggregations}
-        extended={data['@type'] === 'PagedCollection'}
-      />
+        <div className="subHeader">
+          {user ? (
+            <a href="/.logout" onClick={(e) => {e.preventDefault(); emitter.emit('logout')}}>
+                Log out {user} <i className="fa fa-sign-out" />
+            </a>
+          ) : (
+            <a href="/.login" onClick={(e) => {e.preventDefault(); emitter.emit('login')}}>
+              Log in <i className="fa fa-sign-in" />
+            </a>
+          )}
+        </div>
+
+      </Header>
 
       <div className="content">
-
-        {user ? (
-          <p>
-            <a href="/.logout" onClick={(e) => {e.preventDefault(); emitter.emit('logout')}}>
-              Log out user {user}
-            </a>
-          </p>
-        ) : (
-          <p>
-            <a href="/.login" onClick={(e) => {e.preventDefault(); emitter.emit('login')}}>
-              Log in
-            </a>
-          </p>
-        )}
 
         {data['@type'] === 'PagedCollection' &&
           <PagedCollection {...data} />
