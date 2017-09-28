@@ -17,7 +17,8 @@ const ItemList = ({ translate, listItems }) => (
             listItem.about.customer
               ? translate(listItem.about.customer[0].name) || listItem.about['@id']
               : translate(listItem.about.name) || listItem.about['@id']
-          }} />
+          }}
+          />
         </Link>
       </li>
     )
