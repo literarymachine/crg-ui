@@ -93,7 +93,7 @@ const WebPage = ({
         <a target="_blank" className='btn' href={about.url} alt={about.url}><i className="fa fa-external-link" /> {formatURL(about.url)}</a>
       }
 
-      <ResourceTable data={about} />
+      <ResourceTable value={about} schema={schema} />
 
     </div>
 

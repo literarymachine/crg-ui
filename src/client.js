@@ -36,12 +36,13 @@ import './styles/main.pcss'
       state.data = response.data
       state.user = response.user
       renderApp(state, emitter)
+      window.location.hash = '#view'
     }))
     // Read data from the API
     emitter.on('load', url => {
       if (window.location.pathname + window.location.search + window.location.hash !== url) {
         window.history.pushState(null, null, url)
-        window.dispatchEvent(new window.HashChangeEvent("hashchange"))        
+        window.dispatchEvent(new window.HashChangeEvent("hashchange"))
         window.dispatchEvent(new window.PopStateEvent('popstate'))
       }
     })
@@ -63,9 +64,9 @@ import './styles/main.pcss'
       if (target) {
         target.classList.add('target')
       }
-      
+
     })
-    
+
     window.addEventListener('popstate', () => {
       const url = window.location.pathname + window.location.search
       api.load(url, response => {
@@ -75,9 +76,9 @@ import './styles/main.pcss'
         renderApp(state, emitter)
       })
     })
-    
+
     renderApp(window.__APP_INITIAL_STATE__, emitter)
-    
+
     const hash = window.location.hash.substr(1)
     document.querySelectorAll('.target').forEach(e => {
       e.classList.remove('target')
