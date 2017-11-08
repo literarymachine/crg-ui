@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Icon from './Icon'
 import Link from './Link'
+import Label from './Label'
 
 import '../styles/ItemList.pcss'
 
@@ -13,12 +14,7 @@ const ItemList = ({ translate, listItems }) => (
       <li key={listItem.about['@id']}>
         <Link to={listItem.about['@id']}>
           <Icon type={listItem.about['@type']} />&nbsp;
-          <span dangerouslySetInnerHTML={{__html:
-            listItem.about.customer
-              ? translate(listItem.about.customer[0].name) || listItem.about['@id']
-              : translate(listItem.about.name) || listItem.about['@id']
-          }}
-          />
+          <Label item={listItem.about} />
         </Link>
       </li>
     )
