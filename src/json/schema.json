@@ -204,7 +204,8 @@
           "format": "uri"
         },
         "url": {
-          "type": "string"
+          "type": "string",
+          "format": "uri"
         },
         "subOffer": {
           "type": "array",
@@ -272,7 +273,8 @@
             }
           },
           "url": {
-            "type": "string"
+            "type": "string",
+            "format": "uri"
           },
           "priceSpecification": {
             "description": "The price specification for this offer",
@@ -502,7 +504,8 @@
           "type": "string"
         },
         "url": {
-          "type": "string"
+          "type": "string",
+          "format": "uri"
         },
         "sameAs": {
           "type": "array",
@@ -559,7 +562,8 @@
           "$ref": "#/definitions/Place"
         },
         "url": {
-          "type": "string"
+          "type": "string",
+          "format": "uri"
         },
         "provides": {
           "type": "string",
