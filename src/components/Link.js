@@ -6,22 +6,31 @@ import withEmitter from './withEmitter'
 class Link extends React.Component {
   constructor(props) {
     super(props)
-    this.href = props.to.startsWith('urn:uuid') ?
-      `/resource/${props.to}` : props.to
     this.onClick = this.onClick.bind(this)
+    this.getRef = this.getRef.bind(this)
   }
 
   onClick(event) {
-    if (!this.props.to.startsWith('#')) {
-      event.preventDefault()
-      this.props.emitter.emit('load', this.href)
-    }
+    event.preventDefault()
+    this.props.emitter.emit('navigate', this.getRef())
+  }
+
+  getRef() {
+    return this.props.to.startsWith('urn:uuid') ?
+      `/resource/${this.props.to}` : this.props.to
   }
 
   render() {
-    return <a href={this.href} onClick={this.onClick}>
-      {this.props.children ? this.props.children : this.props.to}
-    </a>
+    return (
+      <a
+        title={this.props.title}
+        className={this.props.className}
+        href={this.getRef()}
+        onClick={this.onClick}
+      >
+        {this.props.children ? this.props.children : this.props.to}
+      </a>
+    )
   }
 }
 
@@ -31,7 +40,14 @@ Link.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
   ]).isRequired,
-  to: PropTypes.string.isRequired
+  to: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  title: PropTypes.string
+}
+
+Link.defaultProps = {
+  className: null,
+  title: null
 }
 
 export default withEmitter(Link)

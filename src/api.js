@@ -5,6 +5,7 @@
 
 import fetch from 'isomorphic-fetch'
 import promise from 'es6-promise'
+import linkHeader from 'http-link-header'
 
 promise.polyfill()
 
@@ -19,7 +20,8 @@ const checkStatus = response => {
 const toJson = response => {
   return response.json().then(json => ({
     user: response.headers.get('X-Request-User'),
-    data: json
+    data: json,
+    links: response.headers.has('Link') ? linkHeader.parse(response.headers.get('Link')) : []
   }))
 }
 
@@ -29,9 +31,9 @@ class Api {
     this.port = apiConfig.port
   }
 
-  save (data, callback) {
+  save (data) {
     const url = `/resource/${(data['@id'] || '')}`
-    fetch(`http://${this.host}:${this.port}${url}`, {
+    return fetch(`http://${this.host}:${this.port}${url}`, {
       method: 'POST',
       mode: 'cors',
       headers: new Headers({
@@ -42,30 +44,37 @@ class Api {
       body: JSON.stringify(data)
     }).then(checkStatus)
       .then(toJson)
-      .then(data => {
-        callback(data)
-      }).catch(err => {
-        console.error(err)
+      .catch(err => {
+        console.error("Error saving to " + url, err)
+        return Promise.resolve({
+          data: {
+            '@type': 'ErrorPage',
+            'message': err.message
+          }
+        })
       })
   }
 
-  load (url, callback, authorization) {
-    url = url === '/' ? '/resource/' : url
+  load (url, authorization) {
     const headers = new Headers({
       'Accept': 'application/json'
     })
     if (authorization) {
       headers.append('Authorization', authorization)
     }
-    fetch(`http://${this.host}:${this.port}${url}`, {
+    return fetch(`http://${this.host}:${this.port}${url}`, {
       headers,
       credentials: 'include'
     }).then(checkStatus)
       .then(toJson)
-      .then(data => {
-        callback(data)
-      }).catch(err => {
-        console.error(err)
+      .catch(err => {
+        console.error("Error loading " + url, err)
+        return Promise.resolve({
+          data: {
+            '@type': 'ErrorPage',
+            'message': err.message
+          }
+        })
       })
   }
 
