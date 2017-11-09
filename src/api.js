@@ -26,9 +26,24 @@ const toJson = response => {
 }
 
 class Api {
+
   constructor (apiConfig) {
     this.host = apiConfig.host
     this.port = apiConfig.port
+    this.auth = apiConfig.auth
+    this.headers = {
+      'Accept': 'application/json'
+    }
+    if (apiConfig.auth) {
+      this.headers['Authorization'] = apiConfig.auth
+    }
+    this.getHeaders = this.getHeaders.bind(this)
+  }
+
+  getHeaders(additionalHeaders) {
+    return additionalHeaders
+      ? new Headers(Object.assign({}, this.headers, additionalHeaders))
+      : new Headers(this.headers)
   }
 
   save (data) {
@@ -36,11 +51,10 @@ class Api {
     return fetch(`http://${this.host}:${this.port}${url}`, {
       method: 'POST',
       mode: 'cors',
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
+      headers: this.getHeaders({
+        'Content-Type': 'application/json'
       }),
-      credentials: 'include',
+      credentials: this.auth ? 'omit' : 'include',
       body: JSON.stringify(data)
     }).then(checkStatus)
       .then(toJson)
@@ -56,15 +70,12 @@ class Api {
   }
 
   load (url, authorization) {
-    const headers = new Headers({
-      'Accept': 'application/json'
-    })
-    if (authorization) {
-      headers.append('Authorization', authorization)
-    }
+    const headers = authorization
+      ? this.getHeaders({'Authorization': authorization})
+      : this.getHeaders()
     return fetch(`http://${this.host}:${this.port}${url}`, {
       headers,
-      credentials: 'include'
+      credentials: this.auth ? 'omit' : 'include'
     }).then(checkStatus)
       .then(toJson)
       .catch(err => {
@@ -81,10 +92,8 @@ class Api {
   find (term, types, callback) {
     const url = `/resource/?q=${term}*` + (types ? `&filter.about.@type=${types.join(',')}` : '')
     fetch(`http://${this.host}:${this.port}${url}`, {
-      headers: new Headers({
-        'Accept': 'application/json'
-      }),
-      credentials: 'include'
+      headers: this.getHeaders(),
+      credentials: this.auth ? 'omit' : 'include'
     }).then(checkStatus)
       .then(toJson)
       .then(data => {

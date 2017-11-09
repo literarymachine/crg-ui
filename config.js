@@ -6,7 +6,8 @@ dotenv.config()
 
 export const apiConfig = getenv.multi({
   host: 'API_HOST',
-  port: 'API_PORT'
+  port: 'API_PORT',
+  auth: ['API_AUTH', false]
 })
 
 // export server configuration

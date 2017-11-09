@@ -65,7 +65,6 @@ server.get(/^(.*)$/, (req, res) => {
         features: response.data.features,
         user: response.user,
         locales: acceptedLanguages,
-        mapboxConfig,
         apiConfig,
         route: {
           path: req.path,
