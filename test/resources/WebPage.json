@@ -8,10 +8,7 @@
     "awards" : [ {
       "isAwardedBy" : [ {
         "@type" : "Organization",
-        "name" : [ {
-          "@value" : "Test Organization",
-          "@language" : "en"
-        } ],
+        "name" : "Test Organization",
         "location" : {
           "address" : {
             "addressCountry" : "DE"
@@ -24,20 +21,10 @@
     "provides" : "http://opac.bib.rwth-aachen.de",
     "agentIn" : [ {
       "@type" : "Action",
-      "name" : [ {
-        "@value" : "Test Project",
-        "@language" : "en"
-      } ],
+      "name" : "Test Project",
       "@id" : "urn:uuid:60bd7eb8-3dda-4676-88fa-e9bce49d2a19"
     } ],
-    "name" : [ {
-      "@value" : "Test Organization",
-      "@language" : "en"
-    },
-    {
-      "@value" : "Test Organisation",
-      "@language" : "de"
-    } ],
+    "name" : "Test Organization",
     "location" : {
       "address" : {
         "addressCountry" : "DE"
