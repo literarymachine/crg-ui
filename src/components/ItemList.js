@@ -18,7 +18,7 @@ const ItemList = ({ translate, listItems }) => (
           <Icon type={listItem.about['@type']} />&nbsp;
           <Label item={listItem.about} />
         </Link>
-        {listItem.about.subOffer &&
+        {listItem.about['@type'] === 'Offer' && listItem.about.subOffer &&
           <ul>
             {listItem.about.subOffer.map(subOffer =>
               <li key={subOffer['@id']}>
