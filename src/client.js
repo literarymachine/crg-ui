@@ -55,6 +55,7 @@ import './styles/main.pcss'
       .then(response => {
         state.data = response.data
         state.user = response.user
+        window.location.hash = 'view'
         renderApp(state, emitter)
       })
     )
