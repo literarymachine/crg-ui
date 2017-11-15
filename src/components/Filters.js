@@ -32,7 +32,7 @@ const Filters = ({query, filters, aggregations, emitter, extended}) => (
       <div className="head">
 
         <div className="title">
-          <Link to={'/'}>
+          <Link to={'/resource/'}>
             <img src={'/assets/logo.svg'} alt="Customer Relation Graph" />
             <h1>Customer Relation Graph</h1>
           </Link>
