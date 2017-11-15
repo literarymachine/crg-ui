@@ -5,6 +5,7 @@
 
 import fetch from 'isomorphic-fetch'
 import promise from 'es6-promise'
+import linkHeader from 'http-link-header'
 
 promise.polyfill()
 
@@ -19,63 +20,80 @@ const checkStatus = response => {
 const toJson = response => {
   return response.json().then(json => ({
     user: response.headers.get('X-Request-User'),
-    data: json
+    data: json,
+    links: response.headers.has('Link') ? linkHeader.parse(response.headers.get('Link')) : []
   }))
 }
 
 class Api {
+
   constructor (apiConfig) {
     this.host = apiConfig.host
     this.port = apiConfig.port
+    this.auth = apiConfig.auth
+    this.headers = {
+      'Accept': 'application/json'
+    }
+    if (apiConfig.auth) {
+      this.headers['Authorization'] = apiConfig.auth
+    }
+    this.getHeaders = this.getHeaders.bind(this)
   }
 
-  save (data, callback) {
+  getHeaders(additionalHeaders) {
+    return additionalHeaders
+      ? new Headers(Object.assign({}, this.headers, additionalHeaders))
+      : new Headers(this.headers)
+  }
+
+  save (data) {
     const url = `/resource/${(data['@id'] || '')}`
-    fetch(`http://${this.host}:${this.port}${url}`, {
+    return fetch(`http://${this.host}:${this.port}${url}`, {
       method: 'POST',
       mode: 'cors',
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
+      headers: this.getHeaders({
+        'Content-Type': 'application/json'
       }),
-      credentials: 'include',
+      credentials: this.auth ? 'omit' : 'include',
       body: JSON.stringify(data)
     }).then(checkStatus)
       .then(toJson)
-      .then(data => {
-        callback(data)
-      }).catch(err => {
-        console.error(err)
+      .catch(err => {
+        console.error("Error saving to " + url, err)
+        return Promise.resolve({
+          data: {
+            '@type': 'ErrorPage',
+            'message': err.message
+          }
+        })
       })
   }
 
-  load (url, callback, authorization) {
-    url = url === '/' ? '/resource/' : url
-    const headers = new Headers({
-      'Accept': 'application/json'
-    })
-    if (authorization) {
-      headers.append('Authorization', authorization)
-    }
-    fetch(`http://${this.host}:${this.port}${url}`, {
+  load (url, authorization) {
+    const headers = authorization
+      ? this.getHeaders({'Authorization': authorization})
+      : this.getHeaders()
+    return fetch(`http://${this.host}:${this.port}${url}`, {
       headers,
-      credentials: 'include'
+      credentials: this.auth ? 'omit' : 'include'
     }).then(checkStatus)
       .then(toJson)
-      .then(data => {
-        callback(data)
-      }).catch(err => {
-        console.error(err)
+      .catch(err => {
+        console.error("Error loading " + url, err)
+        return Promise.resolve({
+          data: {
+            '@type': 'ErrorPage',
+            'message': err.message
+          }
+        })
       })
   }
 
   find (term, types, callback) {
     const url = `/resource/?q=${term}*` + (types ? `&filter.about.@type=${types.join(',')}` : '')
     fetch(`http://${this.host}:${this.port}${url}`, {
-      headers: new Headers({
-        'Accept': 'application/json'
-      }),
-      credentials: 'include'
+      headers: this.getHeaders(),
+      credentials: this.auth ? 'omit' : 'include'
     }).then(checkStatus)
       .then(toJson)
       .then(data => {

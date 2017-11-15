@@ -2,34 +2,40 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Icon from './Icon'
 import Link from './Link'
+import Label from './Label'
 
 import '../styles/ItemList.pcss'
 
-import translate from './translate'
+const top = item => item.about['@type'] !== 'Offer' || item.about.superOffer['@type'] === 'Product'
 
-const ItemList = ({ translate, listItems }) => (
+const ItemList = ({listItems }) => (
   <ul className="ItemList" >
-    {listItems.map(listItem => (
+    {listItems.filter(top).map(listItem => (
       <li key={listItem.about['@id']}>
         <Link to={listItem.about['@id']}>
           <Icon type={listItem.about['@type']} />&nbsp;
-          <span dangerouslySetInnerHTML={{__html:
-            listItem.about.customer
-              ? translate(listItem.about.customer[0].name) || listItem.about['@id']
-              : translate(listItem.about.name) || listItem.about['@id']
-          }}
-          />
+          <Label item={listItem.about} />
         </Link>
+        {listItem.about['@type'] === 'Offer' && listItem.about.subOffer &&
+          <ul>
+            {listItem.about.subOffer.map(subOffer =>(
+              <li key={subOffer['@id']}>
+                <Link to={subOffer['@id']}>
+                  <Icon type={subOffer['@type']} />&nbsp;
+                  <Label item={subOffer} />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        }
       </li>
-    )
-    )}
+    ))}
   </ul>
 )
 
 
 ItemList.propTypes = {
-  translate: PropTypes.func.isRequired,
   listItems: PropTypes.arrayOf(PropTypes.any).isRequired
 }
 
-export default translate(ItemList)
+export default ItemList

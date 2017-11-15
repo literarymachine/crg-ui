@@ -15,7 +15,7 @@ const onSubmit = (e, emitter) => {
   const formData = new FormData(form)
   const parameters = [...formData.entries()]
     .map(p => encodeURIComponent(p[0]) + "=" + encodeURIComponent(p[1])).join("&")
-  emitter.emit('load', '/resource/?' + parameters)
+  emitter.emit('navigate', '/resource/?' + parameters)
 }
 
 const triggerClick = (e) => {
@@ -32,7 +32,7 @@ const Filters = ({query, filters, aggregations, emitter, extended}) => (
       <div className="head">
 
         <div className="title">
-          <Link to={'/'}>
+          <Link to={'/resource/'}>
             <img src={'/assets/logo.svg'} alt="Customer Relation Graph" />
             <h1>Customer Relation Graph</h1>
           </Link>

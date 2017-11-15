@@ -204,7 +204,8 @@
           "format": "uri"
         },
         "url": {
-          "type": "string"
+          "type": "string",
+          "format": "uri"
         },
         "subOffer": {
           "type": "array",
@@ -272,7 +273,8 @@
             }
           },
           "url": {
-            "type": "string"
+            "type": "string",
+            "format": "uri"
           },
           "priceSpecification": {
             "description": "The price specification for this offer",
@@ -477,10 +479,13 @@
         },
         "isContactPointFor": {
           "description": "The customer relation ship it is contact point for",
-          "allOf": [
-            { "$ref": "#/definitions/Link" },
-            { "properties": { "@type": { "enum": [ "CustomerRelationship" ] } } }
-          ]
+          "type": "array",
+          "items": {
+            "allOf": [
+              { "$ref": "#/definitions/Link" },
+              { "properties": { "@type": { "enum": [ "CustomerRelationship" ] } } }
+            ]
+          }
         },
         "image": {
           "type": "string",
@@ -502,7 +507,8 @@
           "type": "string"
         },
         "url": {
-          "type": "string"
+          "type": "string",
+          "format": "uri"
         },
         "sameAs": {
           "type": "array",
@@ -559,7 +565,8 @@
           "$ref": "#/definitions/Place"
         },
         "url": {
-          "type": "string"
+          "type": "string",
+          "format": "uri"
         },
         "provides": {
           "type": "string",

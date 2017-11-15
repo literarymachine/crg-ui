@@ -8,7 +8,7 @@ const icons = {
   Product: 'barcode',
   CustomerRelationship: 'suitcase',
   Offer: 'usd',
-  Service: 'desktop'
+  Service: 'wrench'
 }
 
 const Icon = ({ type }) => (
