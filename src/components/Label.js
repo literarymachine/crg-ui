@@ -3,11 +3,10 @@ import PropTypes from 'prop-types'
 
 const getLabel = item => {
   switch (item['@type']) {
-    case 'CustomerRelationship':
-      return item.customer ? item['customer'][0]['name'] : item['@id']
-      break
-    default:
-      return item['name'] || item['@id']
+  case 'CustomerRelationship':
+    return item.customer ? item['customer'][0]['name'] : item['@id']
+  default:
+    return item['name'] || item['@id']
   }
 }
 

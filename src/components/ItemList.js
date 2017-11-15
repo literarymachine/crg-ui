@@ -6,11 +6,9 @@ import Label from './Label'
 
 import '../styles/ItemList.pcss'
 
-import translate from './translate'
-
 const top = item => item.about['@type'] !== 'Offer' || item.about.superOffer['@type'] === 'Product'
 
-const ItemList = ({ translate, listItems }) => (
+const ItemList = ({listItems }) => (
   <ul className="ItemList" >
     {listItems.filter(top).map(listItem => (
       <li key={listItem.about['@id']}>
@@ -20,14 +18,14 @@ const ItemList = ({ translate, listItems }) => (
         </Link>
         {listItem.about['@type'] === 'Offer' && listItem.about.subOffer &&
           <ul>
-            {listItem.about.subOffer.map(subOffer =>
+            {listItem.about.subOffer.map(subOffer =>(
               <li key={subOffer['@id']}>
                 <Link to={subOffer['@id']}>
                   <Icon type={subOffer['@type']} />&nbsp;
                   <Label item={subOffer} />
                 </Link>
               </li>
-            )}
+            ))}
           </ul>
         }
       </li>
@@ -37,8 +35,7 @@ const ItemList = ({ translate, listItems }) => (
 
 
 ItemList.propTypes = {
-  translate: PropTypes.func.isRequired,
   listItems: PropTypes.arrayOf(PropTypes.any).isRequired
 }
 
-export default translate(ItemList)
+export default ItemList
